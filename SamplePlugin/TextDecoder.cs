@@ -83,11 +83,13 @@ public unsafe class TextDecoder(IPluginLog Logger, IDataManager DataManager)
             return string.Empty;
         }
 
-        // see "E8 ?? ?? ?? ?? 41 8B 5F 08 44 8B E0"
+        // see "E8 ?? ?? ?? ?? 44 8B 6B 08"
         var columnOffset = SheetName switch
         {
             "BeastTribe" => 10,
             "DeepDungeonItem" or "DeepDungeonEquipment" or "DeepDungeonMagicStone" or "DeepDungeonDemiclone" => 1,
+            "Glasses" => 4,
+            "GlassesStyle" => 15,
             _ => 0
         };
 
