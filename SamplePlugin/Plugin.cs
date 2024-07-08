@@ -1,73 +1,139 @@
-﻿using Dalamud.Game.Command;
+using Dalamud.Game;
 using Dalamud.IoC;
 using Dalamud.Plugin;
-using System.IO;
-using Dalamud.Interface.Windowing;
 using Dalamud.Plugin.Services;
-using SamplePlugin.Windows;
+using Lumina;
+using Lumina.Data;
+using Lumina.Excel;
+using Lumina.Text;
+using Lumina.Text.Payloads;
+using Lumina.Text.ReadOnly;
 
 namespace SamplePlugin;
 
 public sealed class Plugin : IDalamudPlugin
 {
     [PluginService] internal static IDalamudPluginInterface PluginInterface { get; private set; } = null!;
-    [PluginService] internal static ITextureProvider TextureProvider { get; private set; } = null!;
-    [PluginService] internal static ICommandManager CommandManager { get; private set; } = null!;
+    [PluginService] internal static IDataManager DataManager { get; private set; } = null!;
+    [PluginService] internal static IPluginLog PluginLog { get; private set; } = null!;
 
-    private const string CommandName = "/pmycommand";
-
-    public Configuration Configuration { get; init; }
-
-    public readonly WindowSystem WindowSystem = new("SamplePlugin");
-    private ConfigWindow ConfigWindow { get; init; }
-    private MainWindow MainWindow { get; init; }
+    private readonly TextDecoder textDecoder;
 
     public Plugin()
     {
-        Configuration = PluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
+        textDecoder = new(PluginLog, DataManager);
 
-        // you might normally want to embed resources and load them from the manifest stream
-        var goatImagePath = Path.Combine(PluginInterface.AssemblyLocation.Directory?.FullName!, "goat.png");
-
-        ConfigWindow = new ConfigWindow(this);
-        MainWindow = new MainWindow(this, goatImagePath);
-
-        WindowSystem.AddWindow(ConfigWindow);
-        WindowSystem.AddWindow(MainWindow);
-
-        CommandManager.AddHandler(CommandName, new CommandInfo(OnCommand)
+        var sheet = DataManager.Excel.GetSheetRaw("quest/045/BanArk110_04560");
+        if (sheet == null)
         {
-            HelpMessage = "A useful message to display in /xlhelp"
-        });
+            PluginLog.Warning("Sheet not found!");
+            return;
+        }
 
-        PluginInterface.UiBuilder.Draw += DrawUI;
+        foreach (var rowParser in sheet)
+        {
+            if (rowParser.RowId != 24) continue;
 
-        // This adds a button to the plugin installer entry of this plugin which allows
-        // to toggle the display status of the configuration ui
-        PluginInterface.UiBuilder.OpenConfigUi += ToggleConfigUI;
+            var questText = new QuestText();
+            questText.PopulateData(rowParser, DataManager.GameData, Language.German);
 
-        // Adds another button that is doing the same but for the main ui of the plugin
-        PluginInterface.UiBuilder.OpenMainUi += ToggleMainUI;
+            PluginLog.Debug("{key} = {value} => {parsed}", questText.Key.ExtractText(), questText.Value.ExtractText(), ProcessString(questText.Value).ExtractText());
+
+            break;
+        }
+    }
+
+    private ReadOnlySeString ProcessString(ReadOnlySeString input)
+    {
+        var sb = new SeStringBuilder();
+
+        foreach (var payload in input)
+        {
+            switch (payload.Type)
+            {
+                case ReadOnlySePayloadType.Text:
+                    sb.Append(payload);
+                    break;
+
+                case ReadOnlySePayloadType.Macro:
+                    switch (payload.MacroCode)
+                    {
+                        case MacroCode.Head:
+                            {
+                                if (!payload.TryGetExpression(out var expr1))
+                                    break;
+
+                                if (!expr1.TryGetString(out var text))
+                                    break;
+
+                                var str = ProcessString(text).ExtractText();
+                                if (str.Length == 0)
+                                    break;
+
+                                sb.Append(str[..1].ToUpperInvariant());
+                                sb.Append(str[1..]);
+                                break;
+                            }
+
+                        case MacroCode.DeNoun:
+                            {
+                                if (!payload.TryGetExpression(out var expr1, out var expr2, out var expr3, out var expr4, out var expr5))
+                                    break;
+
+                                if (!expr1.TryGetString(out var rawSheetName))
+                                    break;
+
+                                if (!expr2.TryGetInt(out var person))
+                                    break;
+
+                                if (!expr3.TryGetInt(out var rowId))
+                                    break;
+
+                                if (!expr4.TryGetInt(out var amount))
+                                    break;
+
+                                if (!expr5.TryGetInt(out var @case))
+                                    break;
+
+                                var sheetName = rawSheetName.ExtractText();
+
+                                if (sheetName == "EObj")
+                                    sheetName = "EObjName";
+
+                                sb.Append(textDecoder.ProcessNoun(ClientLanguage.German, sheetName, person, rowId, amount, @case));
+                                break;
+                            }
+
+                        default:
+                            sb.Append(payload);
+                            break;
+                    }
+                    break;
+            }
+        }
+
+        return sb.ToReadOnlySeString();
     }
 
     public void Dispose()
     {
-        WindowSystem.RemoveAllWindows();
 
-        ConfigWindow.Dispose();
-        MainWindow.Dispose();
-
-        CommandManager.RemoveHandler(CommandName);
     }
+}
 
-    private void OnCommand(string command, string args)
+public class QuestText : ExcelRow
+{
+    public ReadOnlySeString Key { get; set; }
+    public ReadOnlySeString Value { get; set; }
+
+    public override void PopulateData(RowParser parser, GameData gameData, Language language)
     {
-        // in response to the slash command, just toggle the display status of our main ui
-        ToggleMainUI();
+        base.PopulateData(parser, gameData, language);
+
+        var key = parser.ReadColumn<SeString>(0)!;
+        var value = parser.ReadColumn<SeString>(1)!;
+
+        Key = new(key.RawData.ToArray());
+        Value = new(value.RawData.ToArray());
     }
-
-    private void DrawUI() => WindowSystem.Draw();
-
-    public void ToggleConfigUI() => ConfigWindow.Toggle();
-    public void ToggleMainUI() => MainWindow.Toggle();
 }
