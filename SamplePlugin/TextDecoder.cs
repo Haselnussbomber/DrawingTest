@@ -51,25 +51,25 @@ public unsafe class TextDecoder(IPluginLog Logger, IDataManager DataManager)
 
     // <XXnoun(SheetName,Person,RowId,Amount,Case[,UnkInt5])>
     // UnkInt5 seems unused in En/Fr/De/Ja, so it's ignored for now
-    public string ProcessNoun(ClientLanguage language, string SheetName, int Person, int RowId, int Amount = 1, int Case = 1, int UnkInt5 = 1)
+    public string ProcessNoun(ClientLanguage Language, string SheetName, int Person, int RowId, int Amount = 1, int Case = 1, int UnkInt5 = 1)
     {
         Case--;
 
-        if (Case > 5 || (language != ClientLanguage.German && Case != 0))
+        if (Case > 5 || (Language != ClientLanguage.German && Case != 0))
             return string.Empty;
 
-        var key = (language, SheetName, RowId, Amount, Person, Case);
+        var key = (Language, SheetName, RowId, Amount, Person, Case);
         if (Cache.TryGetValue(key, out var value))
             return value;
 
-        var attributiveSheet = DataManager.GameData.Excel.GetSheetRaw("Attributive", language.ToLumina());
+        var attributiveSheet = DataManager.GameData.Excel.GetSheetRaw("Attributive", Language.ToLumina());
         if (attributiveSheet == null)
         {
             Logger.Warning("Sheet Attributive not found");
             return string.Empty;
         }
 
-        var sheet = DataManager.GameData.Excel.GetSheetRaw(SheetName, language.ToLumina());
+        var sheet = DataManager.GameData.Excel.GetSheetRaw(SheetName, Language.ToLumina());
         if (sheet == null)
         {
             Logger.Warning("Sheet {SheetName} not found", SheetName);
@@ -90,10 +90,11 @@ public unsafe class TextDecoder(IPluginLog Logger, IDataManager DataManager)
             "DeepDungeonItem" or "DeepDungeonEquipment" or "DeepDungeonMagicStone" or "DeepDungeonDemiclone" => 1,
             "Glasses" => 4,
             "GlassesStyle" => 15,
+            "Ornament" => 8, // not part of that function, but still shifted
             _ => 0
         };
 
-        var output = language switch
+        var output = Language switch
         {
             ClientLanguage.Japanese => ResolveNounJa(Amount, Person, attributiveSheet, row),
             ClientLanguage.English => ResolveNounEn(Amount, Person, attributiveSheet, row, columnOffset),
