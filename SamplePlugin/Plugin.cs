@@ -37,12 +37,13 @@ public sealed class Plugin : IDalamudPlugin
             var questText = new QuestText();
             questText.PopulateData(rowParser, DataManager.GameData, Language.German);
 
-            PluginLog.Debug("{key} = {value} => {parsed}", questText.Key.ExtractText(), questText.Value.ExtractText(), ProcessString(questText.Value).ExtractText());
+            PluginLog.Debug("{key} = {value} => {parsed}", questText.Key.ExtractText(), questText.Value.ToString(), ProcessString(questText.Value).ExtractText());
 
             break;
         }
     }
 
+    // Veeeeery simple SeString evaluator that is missing a lot of things
     private ReadOnlySeString ProcessString(ReadOnlySeString input)
     {
         var sb = new SeStringBuilder();
