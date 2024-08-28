@@ -1,7 +1,4 @@
 using System;
-using Dalamud.Plugin.Services;
-using FFXIVClientStructs.FFXIV.Client.UI.Misc;
-using HaselCommon;
 using HaselCommon.Services;
 using ObservableCollections;
 using R3;
@@ -13,33 +10,30 @@ public class GearsetRepository : IDisposable
     private const int GearsetCount = 100;
 
     private readonly CompositeDisposable disposables = [];
-    private readonly Gearset[] _gearsets = new Gearset[GearsetCount];
-    private readonly ObservableList<Gearset> _existingGearsets = [];
 
-    public IReadOnlyObservableList<Gearset> Gearsets => _existingGearsets;
+    // public ISynchronizedView<Gearset, Gearset> Gearsets { get; }
+    public IReadOnlyObservableList<Gearset> Gearsets { get; }
 
     public unsafe GearsetRepository(ItemService itemService, ExcelService excelService)
     {
-        var rgm = RaptureGearsetModule.Instance();
+        var list = new ObservableList<Gearset>();
 
         for (byte index = 0; index < GearsetCount; index++)
         {
-            var gearset = new Gearset(itemService, excelService, index).AddTo(disposables);
-
-            _gearsets[index] = gearset;
-
-            gearset.IsValid
-                .Do(isValid =>
-                {
-                    Service.Get<IPluginLog>().Debug($"{gearset.Id} is valid? {isValid}");
-                    if (isValid)
-                        _existingGearsets.Add(gearset);
-                    else
-                        _existingGearsets.Remove(gearset);
-                })
-                .Subscribe()
-                .AddTo(disposables);
+            list.Add(new Gearset(itemService, excelService, index).AddTo(disposables));
         }
+
+        Gearsets = list;
+
+        /*
+        Gearsets = _existingGearsets.CreateSortedView(
+            gearset => gearset.Id,
+            gearset => gearset,
+            comparer: Comparer<Gearset>.Default)
+            .AddTo(disposables);
+
+        Gearsets.AttachFilter((gearset, _) => gearset.IsValid.CurrentValue);
+        */
     }
 
     public void Dispose()

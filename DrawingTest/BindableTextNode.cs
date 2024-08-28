@@ -7,7 +7,7 @@ using YGMeasureFuncDelegate = HaselCommon.Yoga.Interop.YGMeasureFuncDelegate;
 
 namespace DrawingTest;
 
-public unsafe class BindableTextNode : Node
+public unsafe class BindableTextNode : YogaNode
 {
     public BindableTextNode() : base()
     {
@@ -36,7 +36,7 @@ public unsafe class BindableTextNode : Node
         OnSetup?.Invoke(this);
         OnSetup = null;
 
-        if (Display == Display.None)
+        if (Display == YGDisplay.None)
             return;
 
         PreDraw();

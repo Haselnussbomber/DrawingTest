@@ -1,3 +1,5 @@
+using System.Globalization;
+using System.Threading;
 using Dalamud.IoC;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
@@ -16,17 +18,18 @@ public sealed class Plugin : IDalamudPlugin
 
     public unsafe Plugin()
     {
+        Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+        Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
+
         Service.Initialize(PluginInterface, PluginLog)
             .AddSingleton<FrameProvider, FrameworkFrameProvider>()
             .AddSingleton<GearsetRepository>()
-            .AddSingleton<GearsetWindow>()
-            .AddSingleton<TestWindow>();
+            .AddSingleton<GearsetWindow>();
         Service.BuildProvider();
         ObservableSystem.RegisterServiceProvider(Service.Provider);
         ObservableSystem.RegisterUnhandledExceptionHandler((ex) => PluginLog.Error(ex, "Unhandled Exception in ObservableSystem"));
         Service.Get<YogaLoggerService>();
         Service.Get<GearsetWindow>().Open();
-        //Service.Get<TestWindow>().Open();
     }
 
     public void Dispose()

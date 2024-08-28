@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FFXIVClientStructs.FFXIV.Client.UI.Misc;
 using HaselCommon.Services;
 using Lumina.Excel.GeneratedSheets;
+using ObservableCollections;
 using R3;
 
 namespace DrawingTest;
@@ -23,7 +24,7 @@ public record Gearset : IEquatable<Gearset>, IComparable<Gearset>, IDisposable
     private readonly ReactiveProperty<bool> _appearanceDiffers = new();
     private readonly ReactiveProperty<bool> _isMainHandMissing = new();
     private readonly ReactiveProperty<byte> _glamourSetLink = new();
-    private readonly ReactiveProperty<GearsetSlot[]> _slots = new([]);
+    private readonly ObservableList<GearsetSlot> _slots = new([]);
 
     public byte Id { get; init; }
     public ReadOnlyReactiveProperty<bool> IsValid => _isValid;
@@ -35,7 +36,7 @@ public record Gearset : IEquatable<Gearset>, IComparable<Gearset>, IDisposable
     public ReadOnlyReactiveProperty<bool> AppearanceDiffers => _appearanceDiffers;
     public ReadOnlyReactiveProperty<bool> IsMainHandMissing => _isMainHandMissing;
     public ReadOnlyReactiveProperty<byte> GlamourSetLink => _glamourSetLink;
-    public ReadOnlyReactiveProperty<GearsetSlot[]> Slots => _slots;
+    public IReadOnlyObservableList<GearsetSlot> Slots => _slots;
 
     public Gearset(ItemService itemService, ExcelService excelService, byte id)
     {
@@ -46,7 +47,7 @@ public record Gearset : IEquatable<Gearset>, IComparable<Gearset>, IDisposable
         Update();
 
         Observable
-            .IntervalFrame(250)
+            .Interval(TimeSpan.FromMilliseconds(200))
             //.EveryUpdate()
             .Subscribe(_ => Update())
             .AddTo(disposables);
@@ -111,19 +112,18 @@ public record Gearset : IEquatable<Gearset>, IComparable<Gearset>, IDisposable
         _appearanceDiffers.Value = appearanceDiffers;
         _hasMissingItems.Value = hasMissingItems;
 
-        if (_slots.CurrentValue.Length == 0)
+        if (_slots.Count == 0)
         {
-            _slots.Value = new GearsetSlot[SlotCount];
             for (var i = 0; i < SlotCount; i++)
             {
-                _slots.CurrentValue[i] = new GearsetSlot(itemService, excelService, gearset->Items[i]).AddTo(disposables);
+                _slots.Add(new GearsetSlot(itemService, excelService, gearset->Items[i]).AddTo(disposables));
             }
         }
         else
         {
             for (var i = 0; i < SlotCount; i++)
             {
-                _slots.CurrentValue[i].Update(gearset->Items[i]);
+                _slots[i].Update(gearset->Items[i]);
             }
         }
     }

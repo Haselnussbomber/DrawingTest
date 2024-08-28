@@ -189,6 +189,8 @@
           "HaselCommon.Yoga": "[1.0.0, )",
           "Microsoft.Extensions.DependencyInjection": "[8.0.0, )",
           "Microsoft.Extensions.Logging": "[8.0.0, )",
+          "ObservableCollections": "[2.2.1, )",
+          "ObservableCollections.R3": "[2.2.1, )",
           "R3": "[1.2.8, )"
         }
       },
