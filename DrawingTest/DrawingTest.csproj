@@ -10,6 +10,7 @@
   <ItemGroup>
     <EmbeddedResource Include="TestWindow.xml" />
     <EmbeddedResource Include="TestWindow2.xml" />
+    <EmbeddedResource Include="TestWindow3.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HaselCommon\HaselCommon.Yoga\HaselCommon.Yoga.csproj" />
