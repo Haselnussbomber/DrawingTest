@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<window namespace="TestWindow" title="Test Window" style="justify-content: center; align-items: center; flex-direction: row; column-gap: 10;">
+<window namespace="TestWindow" title="Test Window" style="justify-content: center; align-items: center;">
     <style>
     .testbox {
         width: 40;
@@ -11,13 +11,27 @@
         border: 1 #0000FFFF;
     }
     .red {
-        border: 1 #FF0000FF;
+        border: 1 #F003;
+    }
+    .green {
+        border: 1 #0F0;
+    }
+    .wrapper {
+        border: 1 rgb(102, 51, 153);
+        padding: 10;
+        flex-direction: row;
+        column-gap: 10;
     }
     </style>
-    <div class="testbox blue">
-        Blue
-    </div>
-    <div class="testbox red">
-        Red
+    <div class="wrapper">
+        <div class="testbox blue">
+            Blue
+        </div>
+        <div class="testbox red">
+            Red
+        </div>
+        <div class="testbox green">
+            Green
+        </div>
     </div>
 </window>
