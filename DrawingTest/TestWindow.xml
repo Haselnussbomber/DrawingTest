@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<window namespace="TestWindow" title="TEEEEEST Window" style="justify-content: center; align-items: center; flex-direction: row; column-gap: 10;">
+    <div style="width: 40; height: 40; justify-content: center; align-items: center; border: 1 #0000FFFF">
+        Blue
+    </div>
+    <div style="width: 40; height: 40; justify-content: center; align-items: center; border: 1 #FF0000FF">
+        Red
+    </div>
+</window>

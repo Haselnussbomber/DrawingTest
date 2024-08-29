@@ -23,13 +23,12 @@ public sealed class Plugin : IDalamudPlugin
 
         Service.Initialize(PluginInterface, PluginLog)
             .AddSingleton<FrameProvider, FrameworkFrameProvider>()
-            .AddSingleton<GearsetRepository>()
-            .AddSingleton<GearsetWindow>();
+            .AddSingleton<TestWindow>();
         Service.BuildProvider();
         ObservableSystem.RegisterServiceProvider(Service.Provider);
         ObservableSystem.RegisterUnhandledExceptionHandler((ex) => PluginLog.Error(ex, "Unhandled Exception in ObservableSystem"));
         Service.Get<YogaLoggerService>();
-        Service.Get<GearsetWindow>().Open();
+        Service.Get<TestWindow>().Open();
     }
 
     public void Dispose()

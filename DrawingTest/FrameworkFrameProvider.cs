@@ -1,6 +1,5 @@
 using System;
 using Dalamud.Plugin.Services;
-using HaselCommon;
 using R3;
 using R3.Collections;
 
