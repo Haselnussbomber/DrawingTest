@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<window namespace="TestWindow" title="TEEEEEST Window" style="justify-content: center; align-items: center; flex-direction: row; column-gap: 10;">
-    <div style="width: 40; height: 40; justify-content: center; align-items: center; border: 1 #0000FFFF">
+<window namespace="TestWindow" title="Test Window" style="justify-content: center; align-items: center; flex-direction: row; column-gap: 10;">
+    <style>
+    .testbox {
+        width: 40;
+        height: 40;
+        justify-content: center;
+        align-items: center;
+    }
+    .blue {
+        border: 1 #0000FFFF;
+    }
+    .red {
+        border: 1 #FF0000FF;
+    }
+    </style>
+    <div class="testbox blue">
         Blue
     </div>
-    <div style="width: 40; height: 40; justify-content: center; align-items: center; border: 1 #FF0000FF">
+    <div class="testbox red">
         Red
     </div>
 </window>
