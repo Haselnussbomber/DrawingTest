@@ -9,6 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestWindow.xml" />
+    <EmbeddedResource Include="ClockNode.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HaselCommon\HaselCommon.Yoga\HaselCommon.Yoga.csproj" />
