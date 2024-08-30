@@ -5,10 +5,15 @@
         border: 1 #0000FFFF; // long version with alpha
     }
     .red {
-        border: 1 #F003; // short version with alpha
+        border: 1 #F009; // short version with alpha
     }
     .green {
         border: 1 #0F0; // short version
+    }
+    .box {
+        size: 40;
+        justify-content: center;
+        align-items: center;
     }
     .wrapper {
         border: 1 rgb(102, 51, 153); // rgb, rebeccapurple
@@ -21,28 +26,29 @@
     }
     </style>
     <template id="testbox">
-        <div class="{color}" style="width: 40; height: 40; justify-content: center; align-items: center;">
-            {children}
+        <div class="box"> <!-- despite overwritten by the template user, this will still be applied -->
+            <div style="flex-direction: row;">
+                <div>{children}</div>!
+            </div>
         </div>
     </template>
     <template id="iconbox">
-        <icon icon-id="{icon-id}" style="size: {size}"/>
+        <icon />
     </template>
     <div class="wrapper">
-        <testbox color="blue">
-            Blue
-        </testbox>
-        <testbox color="red">
+        <testbox class="red">
             Red
         </testbox>
-        <testbox color="green">
+        <testbox class="green">
             Green
+        </testbox>
+        <testbox class="blue">
+            Blue
         </testbox>
     </div>
     <div class="wrapper" style="border-top: 0">
-        <iconbox icon-id="12" size="20" />
-        <iconbox icon-id="13" size="30" />
-        <iconbox icon-id="14" size="40" />
+        <iconbox id="character-icon" icon-id="1" style="size: 40" />
+        <iconbox icon-id="14" style="size: 40" />
     </div>
     <clock format="HH:mm:ss" />
 </div>
