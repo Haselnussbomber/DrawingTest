@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<window namespace="TestWindow" title="Test Window" style="justify-content: center; align-items: center;">
+<div style="justify-content: center; align-items: center;">
     <style>
     .blue {
         border: 1 #0000FFFF; // long version with alpha
@@ -44,4 +44,5 @@
         <iconbox icon-id="13" size="30" />
         <iconbox icon-id="14" size="40" />
     </div>
-</window>
+    <clock format="HH:mm:ss" />
+</div>

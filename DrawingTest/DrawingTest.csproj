@@ -3,14 +3,12 @@
   <PropertyGroup>
     <Version>0.0.0.1</Version>
     <Description>A sample plugin.</Description>
-    <PackageProjectUrl>https://github.com/goatcorp/DrawingTest</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/Haselnussbomber/DrawingTest</PackageProjectUrl>
     <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestWindow.xml" />
-    <EmbeddedResource Include="TestWindow2.xml" />
-    <EmbeddedResource Include="TestWindow3.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HaselCommon\HaselCommon.Yoga\HaselCommon.Yoga.csproj" />

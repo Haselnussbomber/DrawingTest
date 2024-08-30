@@ -1,12 +1,8 @@
 {
-  "Author": "your name here",
-  "Name": "Sample Plugin",
-  "Punchline": "A short one-liner that shows up in /xlplugins.",
-  "Description": "A description that shows up in /xlplugins. List any major slash-command(s).",
+  "Author": "Haselnussbomber",
+  "Name": "Drawing Test",
+  "Punchline": "Developer plugin to test new ways to draw ImGui windows.",
+  "Description": "The goal is to use Metas Yoga flexbox engine and a custom xml parser to create easy-to-write UI templates.",
   "ApplicableVersion": "any",
-  "Tags": [
-    "sample",
-    "plugin",
-    "goats"
-  ]
+  "Tags": []
 }
