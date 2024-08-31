@@ -1,6 +1,8 @@
+using System;
 using FFXIVClientStructs.FFXIV.Client.UI;
 using HaselCommon.ImGuiYoga;
 using HaselCommon.ImGuiYoga.Core;
+using HaselCommon.ImGuiYoga.Events;
 using HaselCommon.Services;
 using Microsoft.Extensions.Logging;
 
@@ -13,27 +15,29 @@ public class TestWindow : YogaWindow
         Context.Logger = logger;
         Context.RegisterType<ClockNode>();
         RootNode = YogaLoader.LoadManifestResource(Context, "DrawingTest.TestWindow.xml");
-
-        var characterIcon = RootNode?.GetNodeById("character-icon");
-        if (characterIcon != null)
-            characterIcon.Interactable = true;
-        else
-            Context.Logger?.LogError("Node character-icon not found!");
     }
 
-    public override bool OnEvent(YogaEventType eventType, YogaNode? sender, params object[] args)
+    public override unsafe void OnEvent(YogaEvent evt)
     {
-        switch (eventType)
+        switch (evt)
         {
-            case YogaEventType.MouseClick when sender?.Id == "character-icon":
-                unsafe { UIModule.Instance()->ExecuteMainCommand(2); }
-                return true;
+            case YogaMouseEvent mouseEvent:
+                switch (mouseEvent.EventType)
+                {
+                    case YogaMouseEventType.MouseClick:
+                        switch (evt.Sender?.Id)
+                        {
+                            case "character-icon":
+                                UIModule.Instance()->ExecuteMainCommand(2);
+                                break;
+                        }
+                        break;
 
-            case YogaEventType.MouseClick:
-                Context.Logger?.LogTrace("Mouse click from {nodeDisplayName}!", sender?.DisplayName ?? "unknown node");
-                return true;
+                    default:
+                        Context.Logger?.LogTrace("Unhandled {eventType} from {nodeDisplayName}!", Enum.GetName(mouseEvent.EventType), evt.Sender?.DisplayName ?? "unknown node");
+                        break;
+                }
+                break;
         }
-
-        return base.OnEvent(eventType, sender, args);
     }
 }

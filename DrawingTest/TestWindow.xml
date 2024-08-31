@@ -47,7 +47,7 @@
         </testbox>
     </div>
     <div class="wrapper" style="border-top: 0">
-        <iconbox id="character-icon" icon-id="1" style="size: 40" />
+        <iconbox id="character-icon" icon-id="1" style="size: 40" enableMouse="true" />
         <iconbox icon-id="14" style="size: 40" />
     </div>
     <clock format="HH:mm:ss" />
