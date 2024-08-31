@@ -1,5 +1,4 @@
 using System;
-using System.Xml;
 using HaselCommon.ImGuiYoga.Attributes;
 using HaselCommon.ImGuiYoga.Components;
 
@@ -14,16 +13,16 @@ public partial class ClockNode : TextNode
 
     private DateTime LastDateTime = DateTime.MinValue;
 
-    public override void ApplyXmlAttribute(XmlAttribute attr, XmlNode node)
+    public override void ApplyXmlAttribute(string name, string value)
     {
-        switch (attr.Name)
+        switch (name)
         {
             case "format":
-                Format = attr.Value;
+                Format = value;
                 break;
 
             default:
-                base.ApplyXmlAttribute(attr, node);
+                base.ApplyXmlAttribute(name, value);
                 break;
         }
     }
