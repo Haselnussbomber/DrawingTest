@@ -1,7 +1,6 @@
 using System;
 using FFXIVClientStructs.FFXIV.Client.UI;
 using HaselCommon.ImGuiYoga;
-using HaselCommon.ImGuiYoga.Core;
 using HaselCommon.ImGuiYoga.Events;
 using HaselCommon.Services;
 using Microsoft.Extensions.Logging;
@@ -14,7 +13,7 @@ public class TestWindow : YogaWindow
     {
         Context.Logger = logger;
         Context.RegisterType<ClockNode>();
-        RootNode = YogaLoader.LoadManifestResource(Context, "DrawingTest.TestWindow.xml");
+        Context.LoadResources();
     }
 
     public override unsafe void OnEvent(YogaEvent evt)

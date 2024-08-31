@@ -8,8 +8,8 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="TestWindow.xml" />
-    <EmbeddedResource Include="ClockNode.xml" />
+    <EmbeddedResource Include="**/*.xml" />
+    <EmbeddedResource Include="**/*.css" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HaselCommon\HaselCommon.Yoga\HaselCommon.Yoga.csproj" />

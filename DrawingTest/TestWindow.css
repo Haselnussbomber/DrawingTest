@@ -1,0 +1,12 @@
+.box {
+    size: 40;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper {
+    border: 1 rgb(102, 51, 153); /* rgb, rebeccapurple padding: 10; */
+    flex-direction: row;
+    column-gap: 10;
+    padding: 10;
+}
