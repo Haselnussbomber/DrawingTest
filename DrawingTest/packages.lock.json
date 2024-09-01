@@ -113,15 +113,15 @@
       },
       "ObservableCollections": {
         "type": "Transitive",
-        "resolved": "2.2.1",
-        "contentHash": "08JmPphYwyYhdyL69h7y9AxgJz/ko0yGETy8wu5CynYQigqUMHvSzuM+zmKtz6CISphonFN9bkkeJr/14oecOw=="
+        "resolved": "2.2.2",
+        "contentHash": "RERBlPTrSGWLW+q5C8K5V2D2fVcZL79QWEHT6U+oB/Zzbuss4o9Y7yq1HlhDfBKlHtBPOBFrY83Jeeb6zAYqEQ=="
       },
       "ObservableCollections.R3": {
         "type": "Transitive",
-        "resolved": "2.2.1",
-        "contentHash": "WtfEe4xpDo9ZCchCR0g0knul2O3yGDgkrJO52bNEkNiK+zfGTvgnB/jsT73QXMU79BqKdTaJr/RI/ElY1ueT8A==",
+        "resolved": "2.2.2",
+        "contentHash": "6lQKWOTVaaBWfk3+sggRmJUIcUZcPfEjyjyOdm3DE5iyUvcaXyE4Cl/yPhogmE8TSxmolXGifb4lvSdSM3LF9A==",
         "dependencies": {
-          "ObservableCollections": "2.2.1",
+          "ObservableCollections": "2.2.2",
           "R3": "1.0.0"
         }
       },
@@ -136,8 +136,8 @@
           "HaselCommon.Yoga": "[1.0.0, )",
           "Microsoft.Extensions.DependencyInjection": "[8.0.0, )",
           "Microsoft.Extensions.Logging": "[8.0.0, )",
-          "ObservableCollections": "[2.2.1, )",
-          "ObservableCollections.R3": "[2.2.1, )",
+          "ObservableCollections": "[2.2.2, )",
+          "ObservableCollections.R3": "[2.2.2, )",
           "R3": "[1.2.8, )"
         }
       },

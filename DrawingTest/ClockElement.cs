@@ -1,13 +1,14 @@
 using System;
-using HaselCommon.ImGuiYoga.Attributes;
-using HaselCommon.ImGuiYoga.Components;
+using HaselCommon.ImGuiYoga;
+using HaselCommon.ImGuiYoga.Elements;
 
 namespace DrawingTest;
 
-[YogaNode("clock")]
-public partial class ClockNode : TextNode
+public partial class ClockElement(Document document) : TextElement(document)
 {
-    private TextNode? TimeTextNode; // TODO: let generator create refs
+    public static new string Tag => "clock";
+
+    private TextElement? TimeTextNode; // TODO: let generator create refs
 
     public string Format { get; set; } = "HH:mm";
 
@@ -29,7 +30,7 @@ public partial class ClockNode : TextNode
 
     public override void Update()
     {
-        TimeTextNode ??= GetNodeById<TextNode>("text");
+        TimeTextNode ??= GetNodeById<TextElement>("text");
 
         var now = DateTime.Now;
         if (LastDateTime != now)

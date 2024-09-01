@@ -11,9 +11,12 @@ public class TestWindow : YogaWindow
 {
     public TestWindow(WindowManager WindowManager, ILogger<TestWindow> logger) : base(WindowManager, "TestWindow")
     {
-        Context.Logger = logger;
-        Context.RegisterType<ClockNode>();
-        Context.LoadResources();
+        var type = GetType();
+
+        Document.Logger = logger;
+        Document.RegisterType<ClockElement>();
+        Document.Stylesheet.AddFromManifestResource($"{type.Namespace}.{type.Name}.css");
+        Document.LoadManifestResource($"{type.Namespace}.{type.Name}.xml");
     }
 
     public override unsafe void OnEvent(YogaEvent evt)
@@ -33,7 +36,7 @@ public class TestWindow : YogaWindow
                         break;
 
                     default:
-                        Context.Logger?.LogTrace("Unhandled {eventType} from {nodeDisplayName}!", Enum.GetName(mouseEvent.EventType), evt.Sender?.DisplayName ?? "unknown node");
+                        Document.Logger?.LogTrace("Unhandled {eventType} from {nodeDisplayName}!", Enum.GetName(mouseEvent.EventType), evt.Sender?.DisplayName ?? "unknown node");
                         break;
                 }
                 break;
