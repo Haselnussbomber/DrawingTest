@@ -1,14 +1,15 @@
 using System;
+using System.Text;
 using HaselCommon.ImGuiYoga;
-using HaselCommon.ImGuiYoga.Elements;
+using Lumina.Text.ReadOnly;
 
 namespace DrawingTest;
 
-public partial class ClockElement(Document document) : TextElement(document)
+public partial class ClockElement : Text
 {
-    public static new string Tag => "clock";
+    public override string NodeName => "clock";
 
-    private TextElement? TimeTextNode; // TODO: let generator create refs
+    private Text? TimeTextNode; // TODO: let generator create refs
 
     public string Format { get; set; } = "HH:mm";
 
@@ -30,12 +31,12 @@ public partial class ClockElement(Document document) : TextElement(document)
 
     public override void Update()
     {
-        TimeTextNode ??= GetNodeById<TextElement>("text");
+        TimeTextNode ??= GetNodeById<Text>("text");
 
         var now = DateTime.Now;
         if (LastDateTime != now)
         {
-            Text = now.ToString(Format);
+            Data = new ReadOnlySeString(Encoding.UTF8.GetBytes(now.ToString(Format)));
             LastDateTime = now;
             IsDirty = true;
         }

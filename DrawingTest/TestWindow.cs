@@ -7,26 +7,34 @@ using Microsoft.Extensions.Logging;
 
 namespace DrawingTest;
 
-public class TestWindow : YogaWindow
+public class TestWindow : Window
 {
     public TestWindow(WindowManager WindowManager, ILogger<TestWindow> logger) : base(WindowManager, "TestWindow")
     {
         var type = GetType();
 
-        Document.Logger = logger;
-        Document.RegisterType<ClockElement>();
-        Document.Stylesheet.AddFromManifestResource($"{type.Namespace}.{type.Name}.css");
-        Document.LoadManifestResource($"{type.Namespace}.{type.Name}.xml");
+        var loader = new DocumentLoader { Logger = logger };
+        loader.ElementRegistry.Add<ClockElement>("clock");
+
+        Document = loader.FromManifestResource($"{type.Namespace}.{type.Name}.xml");
+        Document.AddEventListener(OnEvent);
+
+        var sestringtestNode = Document.GetNodeById("sestringtest");
+        if (sestringtestNode != null)
+        {
+            //sestringtestNode.FirstChild?.LastChild?.
+            //    sestringtestTextNode.Text = "Test String";
+        }
     }
 
-    public override unsafe void OnEvent(YogaEvent evt)
+    public unsafe void OnEvent(Event evt)
     {
         switch (evt)
         {
-            case YogaMouseEvent mouseEvent:
+            case MouseEvent mouseEvent:
                 switch (mouseEvent.EventType)
                 {
-                    case YogaMouseEventType.MouseClick:
+                    case MouseEventType.MouseClick:
                         switch (evt.Sender?.Id)
                         {
                             case "character-icon":
@@ -36,7 +44,7 @@ public class TestWindow : YogaWindow
                         break;
 
                     default:
-                        Document.Logger?.LogTrace("Unhandled {eventType} from {nodeDisplayName}!", Enum.GetName(mouseEvent.EventType), evt.Sender?.DisplayName ?? "unknown node");
+                        Document?.Logger?.LogTrace("Unhandled {eventType} from {nodeDisplayName}!", Enum.GetName(mouseEvent.EventType), evt.Sender?.DisplayName ?? "unknown node");
                         break;
                 }
                 break;

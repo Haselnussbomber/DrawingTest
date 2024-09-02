@@ -133,7 +133,6 @@
       "haselcommon": {
         "type": "Project",
         "dependencies": {
-          "HaselCommon.Yoga": "[1.0.0, )",
           "Microsoft.Extensions.DependencyInjection": "[8.0.0, )",
           "Microsoft.Extensions.Logging": "[8.0.0, )",
           "ObservableCollections": "[2.2.2, )",

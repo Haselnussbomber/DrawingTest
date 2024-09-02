@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <div style="justify-content: center; align-items: center;">
     <link rel="stylesheet" href="DrawingTest.styles.css" />
+    <link rel="stylesheet" href="DrawingTest.TestWindow.css" />
     <style>
     .icon {
         border: 1 #0F0; /* short version */
     }
     </style>
     <template id="testbox">
-        <div class="box"> <!-- despite overwritten by the template user, this will still be applied -->
-            <div style="flex-direction: row;">
-                <div>{children}</div>!
+        <div class="box">
+            <header>
+                {title}
+            </header>
+            <div>
+                {children}
             </div>
         </div>
     </template>
@@ -17,15 +21,9 @@
         <icon />
     </template>
     <div class="wrapper">
-        <testbox class="red">
-            Red
-        </testbox>
-        <testbox class="green">
-            Green
-        </testbox>
-        <testbox class="blue">
-            Blue
-        </testbox>
+        <div class="red">Red</div>
+        <div class="green">Green</div>
+        <div class="blue">Blue</div>
     </div>
     <div class="wrapper" style="border-top: 0">
         <iconbox id="character-icon" icon-id="1" style="size: 40" enableMouse="true" />
@@ -38,4 +36,6 @@
     <span style="font: 24 Meidinger;">1234</span>
     <span style="font: 24 MeidingerMid;">5678</span>
     <span style="font: 24 TrumpGothic;">TrumpGothic</span>
+    Some New<br/>Line Test
+    <testbox id="sestringtest" title="SeString Test" />
 </div>
