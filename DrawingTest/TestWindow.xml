@@ -3,9 +3,12 @@
     <link rel="stylesheet" href="DrawingTest.styles.css" />
     <link rel="stylesheet" href="DrawingTest.TestWindow.css" />
     <style>
-    .icon {
+        .icon {
         border: 1 #0F0; /* short version */
-    }
+        }
+        div#red.red { color: #F00; }
+        .icon.red { color: #F00; }
+        .banana > .red { color: #F00; }
     </style>
     <template id="testbox">
         <div class="box">
@@ -21,7 +24,7 @@
         <icon />
     </template>
     <div class="wrapper">
-        <div class="red">Red</div>
+        <div id="red" class="red">Red</div>
         <div class="green">Green</div>
         <div class="blue">Blue</div>
     </div>
@@ -38,4 +41,18 @@
     <span style="font: 24 TrumpGothic;">TrumpGothic</span>
     Some New<br/>Line Test
     <testbox id="sestringtest" title="SeString Test" />
+
+    <div class="selectortest">
+        <div class="first-child" test="1">
+            <div class="first-child-child child" test="2">
+
+            </div>
+            <div id="first-child-child2withid" class="child" test="3">
+
+            </div>
+            <div id="first-child-child3" class="child" test="4">
+
+            </div>
+        </div>
+    </div>
 </div>
