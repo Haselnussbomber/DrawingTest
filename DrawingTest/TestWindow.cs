@@ -19,58 +19,115 @@ public class TestWindow : Window
         Document = loader.FromManifestResource($"{type.Namespace}.{type.Name}.xml");
         Document.AddEventListener(OnEvent);
 
-        var sestringtestNode = Document.QuerySelector(".wrapper > #character-icon");
-        if (sestringtestNode != null)
+#if false
+        Document.QuerySelectorAll(".wrapper > #character-icon").ForEach(node =>
         {
-            logger.LogDebug("NODE FOUND! {displayName}", sestringtestNode.DisplayName);
-            //sestringtestNode.FirstChild?.LastChild?.
-            //    sestringtestTextNode.Text = "Test String";
-        }
-        else
+            node.Style.Border = 1;
+            node.Style.BorderColor = new HaselColor(0, 1, 0);
+        });
+#elif false
+        Document.QuerySelectorAll(".selectortest > .first-child").ForEach(node =>
         {
-            logger.LogDebug("node not found");
-        }
-
-        logger.LogDebug("TEST 1 START");
-        logger.LogDebug("TEST 1 RESULT: {displayName}", Document.QuerySelector(".selectortest > .first-child")?.DisplayName);
-        logger.LogDebug("TEST 2 START");
-        logger.LogDebug("TEST 2 RESULT: {displayName}", Document.QuerySelector(".selectortest > .child")?.DisplayName); // null
-        logger.LogDebug("TEST 3 START");
-        var firstChild = Document.QuerySelector(".selectortest .child");
-        logger.LogDebug("TEST 3 RESULT: {displayName}", firstChild?.DisplayName);
-        logger.LogDebug("TEST 3 NEXT: {displayName}", firstChild?.NextSibling?.DisplayName);
-        logger.LogDebug("TEST 4 START");
-        logger.LogDebug("TEST 4 RESULT: {displayName}", Document.QuerySelector(".selectortest .child + .child")?.DisplayName);
-
-        foreach (var node in Document.QuerySelectorAll(".selectortest .child ~ .child"))
+            node.Style.Border = 1;
+            node.Style.BorderColor = new HaselColor(0, 1, 0);
+        });
+#elif false
+        Document.QuerySelectorAll(".selectortest > .child").ForEach(node =>
         {
-            logger.LogDebug("node for selector {selector}: {displayName}", ".selectortest .child ~ .child", node.DisplayName);
-        }
-
-        logger.LogDebug("TEST 5 START");
-        logger.LogDebug("TEST 5 RESULT: {displayName}", Document.QuerySelector(".child[id]")?.DisplayName);
-
-        logger.LogDebug("TEST 6 START");
-        logger.LogDebug("TEST 6 RESULT: {displayName}", Document.QuerySelector(".child[id=\"first-child-child2withid\"]")?.DisplayName);
-
-        logger.LogDebug("TEST 7 START");
-        logger.LogDebug("TEST 7 RESULT: {displayName}", Document.QuerySelector(".child[id~=\"first-child-child2withid\"]")?.DisplayName);
-
-        logger.LogDebug("TEST 8 START");
-        logger.LogDebug("TEST 8 RESULT: {displayName}", Document.QuerySelector(".child[id^=\"first-child\"]")?.DisplayName);
-
-        logger.LogDebug("TEST 9 START");
-        logger.LogDebug("TEST 9 RESULT: {displayName}", Document.QuerySelector(".child[id$=\"child2withid\"]")?.DisplayName);
-
-        logger.LogDebug("TEST 10 START");
-        logger.LogDebug("TEST 10 RESULT: {displayName}", Document.QuerySelector(".child[id*=\"child2\"]")?.DisplayName);
-
-        // TO BE IMPLEMENTED
-        logger.LogDebug("TEST 11 START");
-        logger.LogDebug("TEST 11 RESULT: {displayName}", Document.QuerySelector(".child:nth-child(2)")?.DisplayName);
-
-        logger.LogDebug("TEST 12 START");
-        logger.LogDebug("TEST 12 RESULT: {displayName}", Document.QuerySelector(".child:nth-child(odd)")?.DisplayName);
+            node.Style.Border = 1;
+            node.Style.BorderColor = new HaselColor(0, 1, 0);
+        });
+#elif false
+        Document.QuerySelectorAll(".selectortest .child ~ .child").ForEach(node =>
+        {
+            node.Style.Border = 1;
+            node.Style.BorderColor = new HaselColor(0, 1, 0);
+        });
+#elif false
+        Document.QuerySelectorAll(".child").ForEach(node =>
+        {
+            node.Style.Border = 1;
+            node.Style.BorderColor = new HaselColor(0, 1, 0);
+        });
+#elif false
+        Document.QuerySelectorAll(".child[id]").ForEach(node =>
+        {
+            node.Style.Border = 1;
+            node.Style.BorderColor = new HaselColor(0, 1, 0);
+        });
+#elif false
+        Document.QuerySelectorAll(".child[id=\"first-child-child2withid\"]").ForEach(node =>
+        {
+            node.Style.Border = 1;
+            node.Style.BorderColor = new HaselColor(0, 1, 0);
+        });
+#elif false
+        Document.QuerySelectorAll(".child[id~=\"first-child-child2withid\"]").ForEach(node =>
+        {
+            node.Style.Border = 1;
+            node.Style.BorderColor = new HaselColor(0, 1, 0);
+        });
+#elif false
+        Document.QuerySelectorAll(".child[id^=\"first-child\"]").ForEach(node =>
+        {
+            node.Style.Border = 1;
+            node.Style.BorderColor = new HaselColor(0, 1, 0);
+        });
+#elif false
+        Document.QuerySelectorAll(".child[id$=\"child2withid\"]").ForEach(node =>
+        {
+            node.Style.Border = 1;
+            node.Style.BorderColor = new HaselColor(0, 1, 0);
+        });
+#elif false
+        Document.QuerySelectorAll(".child[id*=\"child2\"]").ForEach(node =>
+        {
+            node.Style.Border = 1;
+            node.Style.BorderColor = new HaselColor(0, 1, 0);
+        });
+#elif false
+        Document.QuerySelectorAll(".child:nth-child(2)").ForEach(node =>
+        {
+            node.Style.Border = 1;
+            node.Style.BorderColor = new HaselColor(0, 1, 0);
+        });
+#elif false
+        Document.QuerySelectorAll(".child:nth-child(odd)").ForEach(node =>
+        {
+            node.Style.Border = 1;
+            node.Style.BorderColor = new HaselColor(0, 1, 0);
+        });
+#elif false
+        Document.QuerySelectorAll(".child:nth-child(even)").ForEach(node =>
+        {
+            node.Style.Border = 1;
+            node.Style.BorderColor = new HaselColor(0, 1, 0);
+        });
+#elif false
+        Document.QuerySelectorAll(".child:first-child").ForEach(node =>
+        {
+            node.Style.Border = 1;
+            node.Style.BorderColor = new HaselColor(0, 1, 0);
+        });
+#elif false
+        Document.QuerySelectorAll(".child:last-child").ForEach(node =>
+        {
+            node.Style.Border = 1;
+            node.Style.BorderColor = new HaselColor(0, 1, 0);
+        });
+#elif false
+        Document.QuerySelectorAll(".child:has(.superchild)").ForEach(node =>
+        {
+            node.Style.Border = 1;
+            node.Style.BorderColor = new HaselColor(0, 1, 0);
+        });
+#elif false
+        Document.QuerySelectorAll(".child:not(.insane)").ForEach(node =>
+        {
+            node.Style.Border = 1;
+            node.Style.BorderColor = new HaselColor(0, 1, 0);
+        });
+#endif
     }
 
     public unsafe void OnEvent(Event evt)

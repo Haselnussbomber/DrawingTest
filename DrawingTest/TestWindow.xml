@@ -43,15 +43,26 @@
     <testbox id="sestringtest" title="SeString Test" />
 
     <div class="selectortest">
-        <div class="first-child" test="1">
-            <div class="first-child-child child" test="2">
-
+        <div class="child">
+            -1
+        </div>
+        <div class="first-child">
+            <div class="first-child-child child">
+                0
             </div>
-            <div id="first-child-child2withid" class="child" test="3">
-
+            <div id="first-child-child2withid" class="child">
+                1
             </div>
-            <div id="first-child-child3" class="child" test="4">
-
+            <div class="child">
+                <div class="superchild">
+                    1.1
+                </div>
+            </div>
+            <div class="insane child">
+                1.2
+            </div>
+            <div id="first-child-child3" class="child">
+                2
             </div>
         </div>
     </div>
