@@ -31,14 +31,14 @@
     <div class="wrapper" style="border-top: 0">
         <iconbox id="character-icon" icon-id="1" style="size: 40" enableMouse="true" />
         <iconbox icon-id="14" style="size: 40" />
-        <uld-part uld="Achievement" part-list-id="4" part-index="5" style="size: 40" />
+        <uld-part uld="Achievement" part-list-id="4" part-index="5" style="size: 60" />
     </div>
     <clock format="HH:mm:ss" style="margin-top: 10" /> <!-- TODO: padding-top didn't work -->
-    <span style="font: 24 Axis;">Axis</span>
-    <span style="font: 24 Jupiter;">Jupiter</span>
-    <span style="font: 24 Meidinger;">1234</span>
-    <span style="font: 24 MeidingerMid;">5678</span>
-    <span style="font: 24 TrumpGothic;">TrumpGothic</span>
+    <span style="font: 24px Axis;">Axis</span>
+    <span style="font: 24px Jupiter;">Jupiter</span>
+    <span style="font: 24px Meidinger;">1234</span>
+    <span style="font: 24px MeidingerMid;">5678</span>
+    <span style="font: 24px TrumpGothic;">TrumpGothic</span>
     Some New<br/>Line Test
     <testbox id="sestringtest" title="SeString Test" />
 

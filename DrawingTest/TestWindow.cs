@@ -1,5 +1,6 @@
 using System;
 using FFXIVClientStructs.FFXIV.Client.UI;
+using HaselCommon.Extensions;
 using HaselCommon.ImGuiYoga;
 using HaselCommon.ImGuiYoga.Events;
 using HaselCommon.Services;
@@ -13,11 +14,14 @@ public class TestWindow : Window
     {
         var type = GetType();
 
-        var loader = new DocumentLoader { Logger = logger };
-        loader.ElementRegistry.Add<ClockElement>("clock");
+        Document = new Document
+        {
+            Logger = logger,
+        };
 
-        Document = loader.FromManifestResource($"{type.Namespace}.{type.Name}.xml");
+        Document.CustomElements.Add<ClockElement>("clock");
         Document.AddEventListener(OnEvent);
+        Document.LoadManifestResource($"{type.Namespace}.{type.Name}.xml");
 
 #if false
         Document.QuerySelectorAll(".wrapper > #character-icon").ForEach(node =>
@@ -141,7 +145,13 @@ public class TestWindow : Window
                         switch (evt.Sender?.Id)
                         {
                             case "character-icon":
-                                UIModule.Instance()->ExecuteMainCommand(2);
+                                //UIModule.Instance()->ExecuteMainCommand(2);
+
+                                var red = Document?.QuerySelector(".red");
+                                if (red != null)
+                                {
+                                    red.Attributes["style"] = "border-color: #0F0";
+                                }
                                 break;
                         }
                         break;
