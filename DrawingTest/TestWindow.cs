@@ -1,9 +1,8 @@
 using System;
-using FFXIVClientStructs.FFXIV.Client.UI;
-using HaselCommon.Extensions;
 using HaselCommon.ImGuiYoga;
 using HaselCommon.ImGuiYoga.Events;
 using HaselCommon.Services;
+using ImGuiNET;
 using Microsoft.Extensions.Logging;
 
 namespace DrawingTest;
@@ -22,6 +21,8 @@ public class TestWindow : Window
         Document.CustomElements.Add<ClockElement>("clock");
         Document.AddEventListener(OnEvent);
         Document.LoadManifestResource($"{type.Namespace}.{type.Name}.xml");
+
+        Flags |= ImGuiWindowFlags.NoBackground | ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse;
 
 #if false
         Document.QuerySelectorAll(".wrapper > #character-icon").ForEach(node =>
@@ -152,6 +153,9 @@ public class TestWindow : Window
                                 {
                                     red.Attributes["style"] = "border-color: #0F0";
                                 }
+                                break;
+                            case "close-button":
+                                Close();
                                 break;
                         }
                         break;

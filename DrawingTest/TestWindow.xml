@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<div style="justify-content: center; align-items: center;">
+<div class="window">
     <link rel="stylesheet" href="DrawingTest.styles.css" />
     <link rel="stylesheet" href="DrawingTest.TestWindow.css" />
     <style>
         .icon {
-        border: 1 #0F0; /* short version */
+            border: 1 #0F0; /* short version */
         }
         div#red.red { color: #F00; }
         .icon.red { color: #F00; }
         .banana > .red { color: #F00; }
+
+        .window {
+            flex-grow: 1;
+            background-color: rgba(0, 0, 0, 0.75);
+            border-radius: 14px;
+            border: 1px rgb(216, 187, 125);
+        }
+
+        .titlebar {
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 4px 7px;
+            background-color: rgba(0, 0, 0, 0.75);
+            border-top-left-radius: 14px;
+            border-top-right-radius: 14px;
+        }
+        .titlebar .close-button {
+            background-color: #F004;
+            border-radius: 10px;
+            padding: 2px 7px;
+        }
+        .titlebar .close-button:hover {
+            background-color: #F00A;
+        }
+
+        #character-icon {
+            cursor: hand;
+            size: 40; /* TODO: because ExCSS parses this rule and applies it, ResetStyle is called and removes the style from the style attribute */
+        }
     </style>
     <template id="testbox">
         <div class="box">
@@ -23,46 +52,56 @@
     <template id="iconbox">
         <icon />
     </template>
-    <div class="wrapper">
-        <div id="red" class="red">Red</div>
-        <div class="green">Green</div>
-        <div class="blue">Blue</div>
-    </div>
-    <div class="wrapper" style="border-top: 0">
-        <iconbox id="character-icon" icon-id="1" style="size: 40" enableMouse="true" />
-        <iconbox icon-id="14" style="size: 40" />
-        <uld-part uld="Achievement" part-list-id="4" part-index="5" style="size: 60" />
-    </div>
-    <clock format="HH:mm:ss" style="margin-top: 10" /> <!-- TODO: padding-top didn't work -->
-    <span style="font: 24px Axis;">Axis</span>
-    <span style="font: 24px Jupiter;">Jupiter</span>
-    <span style="font: 24px Meidinger;">1234</span>
-    <span style="font: 24px MeidingerMid;">5678</span>
-    <span style="font: 24px TrumpGothic;">TrumpGothic</span>
-    Some New<br/>Line Test
-    <testbox id="sestringtest" title="SeString Test" />
-
-    <div class="selectortest">
-        <div class="child">
-            -1
+    <div class="titlebar">
+        <div>
+            Test Window
         </div>
-        <div class="first-child">
-            <div class="first-child-child child">
-                0
-            </div>
-            <div id="first-child-child2withid" class="child">
-                1
-            </div>
+        <div>
+            <div id="close-button" class="close-button">X</div>
+        </div>
+    </div>
+    <div style="justify-content: center; align-items: center;"> <!-- TODO: scroll??? -->
+        <div class="wrapper">
+            <div id="red" class="red">Red</div>
+            <div class="green">Green</div>
+            <div class="blue">Blue</div>
+        </div>
+        <div class="wrapper" style="border-top: 0">
+            <iconbox id="character-icon" icon-id="1" style="size: 40" enableMouse="true" />
+            <iconbox icon-id="14" style="size: 40" />
+            <uld-part uld="Achievement" part-list-id="4" part-index="5" style="size: 60" />
+        </div>
+        <clock format="HH:mm:ss" style="margin-top: 10" /> <!-- TODO: padding-top didn't work -->
+        <span style="font: 24px Axis;">Axis</span>
+        <span style="font: 24px Jupiter;">Jupiter</span>
+        <span style="font: 24px Meidinger;">1234</span>
+        <span style="font: 24px MeidingerMid;">5678</span>
+        <span style="font: 24px TrumpGothic;">TrumpGothic</span>
+        Some New<br/>Line Test
+        <testbox id="sestringtest" title="SeString Test" />
+
+        <div class="selectortest">
             <div class="child">
-                <div class="superchild">
-                    1.1
+                -1
+            </div>
+            <div class="first-child">
+                <div class="first-child-child child">
+                    0
                 </div>
-            </div>
-            <div class="insane child">
-                1.2
-            </div>
-            <div id="first-child-child3" class="child">
-                2
+                <div id="first-child-child2withid" class="child">
+                    1
+                </div>
+                <div class="child">
+                    <div class="superchild">
+                        1.1
+                    </div>
+                </div>
+                <div class="insane child">
+                    1.2
+                </div>
+                <div id="first-child-child3" class="child">
+                    2
+                </div>
             </div>
         </div>
     </div>
