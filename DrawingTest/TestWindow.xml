@@ -12,18 +12,17 @@
 
         .window {
             flex-grow: 1;
-            background-color: rgba(0, 0, 0, 0.75);
-            border-radius: 14px;
-            border: 1px rgb(216, 187, 125);
+            background-color: imguicol(WindowBg);
         }
 
         .titlebar {
             flex-direction: row;
             justify-content: space-between;
             padding: 4px 7px;
-            background-color: rgba(0, 0, 0, 0.75);
-            border-top-left-radius: 14px;
-            border-top-right-radius: 14px;
+            background-color: imguicol(TitleBg);
+        }
+        .window.win-focused .titlebar {
+            background-color: imguicol(TitleBgActive);
         }
         .titlebar .close-button {
             background-color: #F004;
@@ -32,6 +31,7 @@
         }
         .titlebar .close-button:hover {
             background-color: #F00A;
+            cursor: hand;
         }
 
         #character-icon {
