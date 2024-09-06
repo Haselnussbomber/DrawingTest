@@ -135,6 +135,16 @@ public class TestWindow : Window
 #endif
     }
 
+    public override void Draw()
+    {
+        if (IsFocused && !Document!.ClassList.Contains("win-focused"))
+            Document.ClassList.Add("win-focused");
+        else if (!IsFocused && Document!.ClassList.Contains("win-focused"))
+            Document.ClassList.Remove("win-focused");
+
+        base.Draw();
+    }
+
     public unsafe void OnEvent(Event evt)
     {
         switch (evt)
