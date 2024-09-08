@@ -12,5 +12,5 @@ export default function App() {
     return () => clearInterval(intervalId);
   }, [currentTime]);
 
-  return <div>Hello World! <Clock id="clock" time={currentTime}/></div>;
+  return <div>Hello World! <Clock time={currentTime}/></div>;
 }
