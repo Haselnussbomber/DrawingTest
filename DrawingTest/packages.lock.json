@@ -38,6 +38,11 @@
         "resolved": "4.2.5",
         "contentHash": "g+6I0JsIQVfAzAjkwrOqXHzqNv+QOtEvzur61RhKsZP8OyaqSjLqcu2bHbyf1qksQM72p8q8YtgL2JM+k0FwBw=="
       },
+      "Haselnussbomber.YogaSharp": {
+        "type": "Transitive",
+        "resolved": "1.0.3",
+        "contentHash": "FD94il+dtk4xqIB8ywAQOKbHKPO0NVCAl4I5qkMmkSO1AdyQoiSWtRzqfFu603ZN2wKxKAPFwqpbMKIK/GmUGw=="
+      },
       "Microsoft.Build.Tasks.Git": {
         "type": "Transitive",
         "resolved": "1.1.1",
@@ -183,15 +188,15 @@
       },
       "ObservableCollections": {
         "type": "Transitive",
-        "resolved": "2.2.2",
-        "contentHash": "RERBlPTrSGWLW+q5C8K5V2D2fVcZL79QWEHT6U+oB/Zzbuss4o9Y7yq1HlhDfBKlHtBPOBFrY83Jeeb6zAYqEQ=="
+        "resolved": "3.0.2",
+        "contentHash": "k+Vq8hh/f8crZ2ZUrRjWqM3iFc9vUhWNASs6dQh0+UBinI5skuVuQdI14QOeLN2iPmvNKZD5dHVJkrJkeJ2iuA=="
       },
       "ObservableCollections.R3": {
         "type": "Transitive",
-        "resolved": "2.2.2",
-        "contentHash": "6lQKWOTVaaBWfk3+sggRmJUIcUZcPfEjyjyOdm3DE5iyUvcaXyE4Cl/yPhogmE8TSxmolXGifb4lvSdSM3LF9A==",
+        "resolved": "3.0.2",
+        "contentHash": "cQitavuiYN4lkgrRmWgtPxSIVvqPV+nn1df68uYSOd6vGgIoRRaTmMOjpiV+/La6I/kjmmFpQa5TkXs0zj8ZhQ==",
         "dependencies": {
-          "ObservableCollections": "2.2.2",
+          "ObservableCollections": "3.0.2",
           "R3": "1.0.0"
         }
       },
@@ -204,10 +209,11 @@
         "type": "Project",
         "dependencies": {
           "ExCSS": "[4.2.5, )",
+          "Haselnussbomber.YogaSharp": "[1.0.3, )",
           "Microsoft.Extensions.DependencyInjection": "[8.0.0, )",
           "Microsoft.Extensions.Logging": "[8.0.0, )",
-          "ObservableCollections": "[2.2.2, )",
-          "ObservableCollections.R3": "[2.2.2, )",
+          "ObservableCollections": "[3.0.2, )",
+          "ObservableCollections.R3": "[3.0.2, )",
           "R3": "[1.2.8, )"
         }
       }
