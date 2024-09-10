@@ -392,7 +392,7 @@ const MyRenderer = Reconciler({
   removeChild(parentInstance: Instance, child: Instance | TextInstance | SuspenseInstance): void {
     console.debug(`removeChild called with parentInstance: ${parentInstance.DisplayName}, child: ${child.DisplayName}`);
     parentInstance.Remove(child);
-    child.Dispose();
+    child.DisposeRecursive();
   },
 
   /**
@@ -401,7 +401,7 @@ const MyRenderer = Reconciler({
   removeChildFromContainer(container: Container, child: Instance | TextInstance | SuspenseInstance): void {
     console.debug(`removeChildFromContainer called with container: ${container.DisplayName}, child: ${child.DisplayName}`);
     container.Remove(child);
-    child.Dispose();
+    child.DisposeRecursive();
   },
 
   /**
