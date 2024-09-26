@@ -48,7 +48,9 @@
             <div id="close-button" class="close-button">X</div>
         </div>
     </div>
-    <div style="justify-content: center; align-items: center;"> <!-- TODO: scroll??? -->
+    <div style="justify-content: center; align-items: center;">
+        <!-- TODO: scroll??? -->
+        <animated-node />
         <div class="wrapper">
             <div id="red" class="red">Red</div>
             <div class="green">Green</div>

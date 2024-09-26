@@ -20,6 +20,7 @@ public class TestWindow : Window
         };
 
         Document.CustomElements.Add<ClockNode>("clock");
+        Document.CustomElements.Add<AnimatedNode>("animated-node");
         Document.AddEventListener(OnEvent);
         Document.LoadManifestResource($"{type.Namespace}.{type.Name}.xml");
 
