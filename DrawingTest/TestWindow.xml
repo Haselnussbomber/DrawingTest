@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="DrawingTest.TestWindow.css" />
     <style>
         .icon {
-            border: 1 #0F0; /* short version */
+            border: 1px #0F0; /* short version */
         }
         div#red.red { color: #F00; }
         .icon.red { color: #F00; }
@@ -36,22 +36,10 @@
 
         #character-icon {
             cursor: hand;
-            size: 40; /* TODO: because ExCSS parses this rule and applies it, ResetStyle is called and removes the style from the style attribute */
+            width: 40px;
+            height: 40px;
         }
     </style>
-    <template id="testbox">
-        <div class="box">
-            <header>
-                {title}
-            </header>
-            <div>
-                {children}
-            </div>
-        </div>
-    </template>
-    <template id="iconbox">
-        <icon />
-    </template>
     <div class="titlebar">
         <div>
             Test Window
@@ -67,18 +55,17 @@
             <div class="blue">Blue</div>
         </div>
         <div class="wrapper" style="border-top: 0">
-            <iconbox id="character-icon" icon-id="1" style="size: 40" enableMouse="true" />
-            <iconbox icon-id="14" style="size: 40" />
-            <uld-part uld="Achievement" part-list-id="4" part-index="5" style="size: 60" />
+            <icon id="character-icon" icon-id="1" style="width: 40; aspect-ratio: 1" interactive="true" />
+            <icon icon-id="14" style="width: 40; aspect-ratio: 1" />
+            <uld-part uld="Achievement" part-list-id="4" part-index="5" style="width: 60; aspect-ratio: 1" />
         </div>
         <clock format="HH:mm:ss" style="margin-top: 10" /> <!-- TODO: padding-top didn't work -->
-        <span style="font: 24px Axis;">Axis</span>
-        <span style="font: 24px Jupiter;">Jupiter</span>
-        <span style="font: 24px Meidinger;">1234</span>
-        <span style="font: 24px MeidingerMid;">5678</span>
-        <span style="font: 24px TrumpGothic;">TrumpGothic</span>
+        <div style="font: 24px Axis;">Axis</div>
+        <div style="font: 24px Jupiter;">Jupiter</div>
+        <div style="font: 24px Meidinger;">1234</div>
+        <div style="font: 24px MeidingerMid;">5678</div>
+        <div style="font: 24px TrumpGothic;">TrumpGothic</div>
         Some New<br/>Line Test
-        <testbox id="sestringtest" title="SeString Test" />
 
         <div class="selectortest">
             <div class="child">
