@@ -1,69 +1,53 @@
-using System;
-using FFXIVClientStructs.FFXIV.Client.UI;
-using HaselCommon.ImGuiYoga;
-using HaselCommon.ImGuiYoga.Events;
+using HaselCommon.Gui.Yoga;
+using HaselCommon.Gui.Yoga.Enums;
 using HaselCommon.Services;
-using ImGuiNET;
-using Microsoft.Extensions.Logging;
 
 namespace DrawingTest;
 
-public class TestWindow : Window
+public class TestWindow : YogaWindow
 {
-    public TestWindow(WindowManager WindowManager, ILogger<TestWindow> logger) : base(WindowManager, "TestWindow")
+    public TestWindow(WindowManager windowManager) : base(windowManager, "TestWindow")
     {
-        var type = GetType();
+        EnableDebug = true;
 
-        Document = new Document
-        {
-            Logger = logger,
-        };
-
-        Document.CustomElements.Add<ClockNode>("clock");
-        Document.CustomElements.Add<AnimatedNode>("animated-node");
-        Document.AddEventListener(OnEvent);
-        Document.LoadManifestResource($"{type.Namespace}.{type.Name}.xml");
-
-        Flags |= ImGuiWindowFlags.NoBackground | ImGuiWindowFlags.NoTitleBar | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse;
-    }
-
-    public override void Draw()
-    {
-        if (IsFocused && !Document!.ClassList.Contains("win-focused"))
-            Document.ClassList.Add("win-focused");
-        else if (!IsFocused && Document!.ClassList.Contains("win-focused"))
-            Document.ClassList.Remove("win-focused");
-
-        base.Draw();
-    }
-
-    public unsafe void OnEvent(Event evt)
-    {
-        switch (evt)
-        {
-            case MouseEvent mouseEvent:
-                switch (mouseEvent.EventType)
-                {
-                    case MouseEventType.MouseClick:
-                        if (mouseEvent.Button == ImGuiMouseButton.Left)
-                        {
-                            switch (evt.Sender?.Id)
+        RootNode.FlexDirection = FlexDirection.Row;
+        RootNode.ColumnGap = 20;
+        RootNode.Add(
+            new ClockNode
+            {
+                MinWidth = StyleLength.Percent(33),
+                Height = 60,
+            },
+            // new AnimatedTextNode(),
+            new Node()
+            {
+                FlexDirection = FlexDirection.Row,
+                Width = StyleLength.Percent(33),
+                Height = 60,
+                ColumnGap = 3,
+                Children = [
+                    new AnimatedBox() {
+                        Children = [
+                            new TextNode()
                             {
-                                case "character-icon":
-                                    UIModule.Instance()->ExecuteMainCommand(2);
-                                    break;
-                                case "close-button":
-                                    Close();
-                                    break;
-                            }
-                        }
-                        break;
+                                Text = "hello",
+                            },
+                        ]
+                    },
 
-                    default:
-                        Document?.Logger?.LogTrace("Unhandled {eventType} from {nodeDisplayName}!", Enum.GetName(mouseEvent.EventType), evt.Sender?.DisplayName ?? "unknown node");
-                        break;
-                }
-                break;
-        }
+                    new TextNode()
+                    {
+                        Text = "world"
+                    }
+                ]
+            },
+            new Node()
+            {
+                FlexDirection = FlexDirection.Row,
+                Width = StyleLength.Percent(33),
+                Height = 60,
+                ColumnGap = 3
+            }
+        );
     }
 }

@@ -1,34 +1,27 @@
 using System;
-using System.Text;
-using HaselCommon.ImGuiYoga;
-using HaselCommon.ImGuiYoga.Attributes;
-using Lumina.Text.ReadOnly;
+using Dalamud.Plugin.Services;
+using HaselCommon;
+using HaselCommon.Gui.Yoga;
+using HaselCommon.Gui.Yoga.Enums;
+using Lumina.Text;
 
 namespace DrawingTest;
 
-public class ClockNode : Node
+public class ClockNode : TextNode
 {
-    private DateTime LastDateTime = DateTime.MinValue;
-
-    [NodeRef("#time")]
-    private readonly Node? TimeTextNode;
-
-    public string Format => Attributes["format"] ?? "HH:mm";
-
-    public override void Setup()
+    public ClockNode()
     {
-        LoadManifestResource("DrawingTest.ClockNode.xml");
+        Service.Get<IPluginLog>().Debug("ClockNode ctor");
     }
 
-    public override void Update()
+    public override void UpdateContent()
     {
-        base.Update();
+        if (Display == Display.None)
+            return;
 
-        var now = DateTime.Now;
-        if (TimeTextNode is Text textNode && LastDateTime != now)
-        {
-            textNode.Data = new ReadOnlySeString(Encoding.UTF8.GetBytes(now.ToString(Format)));
-            LastDateTime = now;
-        }
+        Text = new SeStringBuilder()
+            .Append("Current Time is: ")
+            .Append(DateTime.Now.ToString("HH:mm:ss"))
+            .ToReadOnlySeString();
     }
 }
