@@ -1,4 +1,3 @@
-using System;
 using FFXIVClientStructs.FFXIV.Client.System.Framework;
 using HaselCommon.Gui.Yoga;
 using HaselCommon.Gui.Yoga.Enums;

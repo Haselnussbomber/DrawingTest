@@ -1,5 +1,3 @@
-using System;
-using System.Globalization;
 using FFXIVClientStructs.FFXIV.Client.System.Framework;
 using HaselCommon.Gui.Yoga;
 using HaselCommon.Gui.Yoga.Enums;
@@ -8,7 +6,7 @@ using Lumina.Text.ReadOnly;
 
 namespace DrawingTest;
 
-public class AnimatedTextNode : TextNode
+public class AnimatedColoredTextNode : TextNode
 {
     private float _t;
     private float _direction = 1f;
@@ -34,6 +32,8 @@ public class AnimatedTextNode : TextNode
         PaddingTop = value;
         PaddingLeft = value / 2f;
         BorderLeft = value * 2f;
-        Text = ReadOnlySeString.FromText($"{value.ToString("0.000", CultureInfo.InvariantCulture)}px");
+
+        var color = hsl(value * 10, 0.80f, 0.75f);
+        Text = ReadOnlySeString.FromMacroString($"<color({(uint)color})>R: {color.R:0.00} G: {color.G:0.00} B: {color.B:0.00}<color(0)>");
     }
 }

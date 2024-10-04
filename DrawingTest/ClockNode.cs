@@ -1,6 +1,4 @@
-using System;
 using Dalamud.Plugin.Services;
-using HaselCommon;
 using HaselCommon.Gui.Yoga;
 using HaselCommon.Gui.Yoga.Enums;
 using Lumina.Text;

@@ -18,7 +18,7 @@ public class TestWindow : YogaWindow
                 MinWidth = StyleLength.Percent(33),
                 Height = 60,
             },
-            // new AnimatedTextNode(),
+            new AnimatedColoredTextNode(),
             new Node()
             {
                 FlexDirection = FlexDirection.Row,
