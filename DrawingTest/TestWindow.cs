@@ -10,43 +10,39 @@ public class TestWindow : YogaWindow
     {
         EnableDebug = true;
 
-        RootNode.FlexDirection = FlexDirection.Row;
-        RootNode.ColumnGap = 20;
+        RootNode.Gap = 10;
         RootNode.Add(
-            new ClockNode
+            new AlertBox()
             {
-                MinWidth = StyleLength.Percent(33),
-                Height = 60,
+                Preset = AlertBoxPreset.Info,
+                Text = "This is an AlertBox with the Info preset.",
+                Closable = true,
+                CloseCallback = (alertBox) => alertBox.Parent?.Remove(alertBox) // this throws
             },
-            new AnimatedColoredTextNode(),
+
+            new AlertBox()
+            {
+                Preset = AlertBoxPreset.Warning,
+                Text = "This is an AlertBox with the Warning preset."
+            },
+
+            new AlertBox()
+            {
+                Preset = AlertBoxPreset.Error,
+                Text = "This is an AlertBox with the Error preset."
+            },
+
             new Node()
             {
                 FlexDirection = FlexDirection.Row,
-                Width = StyleLength.Percent(33),
-                Height = 60,
-                ColumnGap = 3,
+                ColumnGap = 20,
                 Children = [
-                    new AnimatedBox() {
-                        Children = [
-                            new TextNode()
-                            {
-                                Text = "hello",
-                            },
-                        ]
-                    },
-
-                    new TextNode()
+                    new ClockNode
                     {
-                        Text = "world"
+                        MinWidth = StyleLength.Percent(33),
+                        Height = 60,
                     }
                 ]
-            },
-            new Node()
-            {
-                FlexDirection = FlexDirection.Row,
-                Width = StyleLength.Percent(33),
-                Height = 60,
-                ColumnGap = 3
             }
         );
     }
