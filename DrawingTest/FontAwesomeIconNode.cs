@@ -14,6 +14,7 @@ public class FontAwesomeIconNode : Node
 {
     private bool _hovered;
     private Vector2 _mousePos;
+    private bool _active;
 
     [NodeProp("FontAwesomeIcon", editable: true)]
     public FontAwesomeIcon Icon { get; set; } = FontAwesomeIcon.ExclamationTriangle;
@@ -38,8 +39,41 @@ public class FontAwesomeIconNode : Node
     public override void DrawContent()
     {
         ImGuiUtils.Icon(Icon, _hovered ? (IconHoveredColor ?? IconDefaultColor) : IconDefaultColor);
+        HandleInteraction();
+    }
+
+    private void HandleInteraction()
+    {
+        ImGui.SetCursorPos(AbsolutePosition + new Vector2(ComputedBorderLeft, ComputedBorderTop));
+
+        if (ImGui.InvisibleButton($"###{Guid}_Button", ComputedSize))
+        {
+            DispatchEvent(new MouseEvent()
+            {
+                EventType = MouseEventType.MouseClick,
+                Button = ImGuiMouseButton.Left
+            });
+        }
 
         var hovered = ImGui.IsItemHovered();
+        if (hovered)
+        {
+            var mousePos = ImGui.GetMousePos();
+            if (mousePos != _mousePos)
+            {
+                _mousePos = mousePos;
+                DispatchEvent(new MouseEvent()
+                {
+                    EventType = MouseEventType.MouseMove
+                });
+            }
+
+            DispatchEvent(new MouseEvent()
+            {
+                EventType = MouseEventType.MouseHover
+            });
+        }
+
         if (hovered != _hovered)
         {
             _hovered = hovered;
@@ -60,47 +94,25 @@ public class FontAwesomeIconNode : Node
             }
         }
 
-        if (hovered)
+        var active = ImGui.IsItemActive();
+        if (active != _active)
         {
-            var mousePos = ImGui.GetMousePos();
-            if (mousePos != _mousePos)
+            _active = active;
+
+            if (active)
             {
-                _mousePos = mousePos;
                 DispatchEvent(new MouseEvent()
                 {
-                    EventType = MouseEventType.MouseMove
+                    EventType = MouseEventType.MouseDown,
                 });
             }
-
-            DispatchEvent(new MouseEvent()
+            else
             {
-                EventType = MouseEventType.MouseHover
-            });
-        }
-
-        if (ImGui.IsItemClicked(ImGuiMouseButton.Left))
-        {
-            DispatchEvent(new MouseEvent()
-            {
-                EventType = MouseEventType.MouseClick,
-                Button = ImGuiMouseButton.Left,
-            });
-        }
-        else if (ImGui.IsItemClicked(ImGuiMouseButton.Middle))
-        {
-            DispatchEvent(new MouseEvent()
-            {
-                EventType = MouseEventType.MouseClick,
-                Button = ImGuiMouseButton.Middle,
-            });
-        }
-        else if (ImGui.IsItemClicked(ImGuiMouseButton.Right))
-        {
-            DispatchEvent(new MouseEvent()
-            {
-                EventType = MouseEventType.MouseClick,
-                Button = ImGuiMouseButton.Right,
-            });
+                DispatchEvent(new MouseEvent()
+                {
+                    EventType = MouseEventType.MouseUp
+                });
+            }
         }
     }
 }

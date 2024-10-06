@@ -108,6 +108,8 @@ public class AlertBox : Node
         Add(_closeNode = new()
         {
             Display = Display.None,
+            PaddingAll = 4,
+            MarginAll = -4,
             Icon = FontAwesomeIcon.Times,
             IconDefaultColor = hsl(0, 0, 0.631f),
             IconHoveredColor = hsl(0, 0, 0.831f),
