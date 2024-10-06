@@ -5,6 +5,7 @@ using HaselCommon.Gui;
 using HaselCommon.Gui.Yoga;
 using HaselCommon.Gui.Yoga.Attributes;
 using HaselCommon.Gui.Yoga.Enums;
+using HaselCommon.Gui.Yoga.Events;
 using ImGuiNET;
 
 namespace DrawingTest;
@@ -12,20 +13,16 @@ namespace DrawingTest;
 public class FontAwesomeIconNode : Node
 {
     private bool _hovered;
+    private Vector2 _mousePos;
 
-    [NodeProp("FontAweSomeIcon", editable: true)]
+    [NodeProp("FontAwesomeIcon", editable: true)]
     public FontAwesomeIcon Icon { get; set; } = FontAwesomeIcon.ExclamationTriangle;
 
-    [NodeProp("FontAweSomeIcon", editable: true)]
+    [NodeProp("FontAwesomeIcon", editable: true)]
     public Color? IconDefaultColor { get; set; }
 
-    [NodeProp("FontAweSomeIcon", editable: true)]
+    [NodeProp("FontAwesomeIcon", editable: true)]
     public Color? IconHoveredColor { get; set; }
-
-    public Action<FontAwesomeIconNode>? OnMouseOverCallback { get; set; }
-    public Action<FontAwesomeIconNode>? OnMouseEnterCallback { get; set; }
-    public Action<FontAwesomeIconNode>? OnMouseOutCallback { get; set; }
-    public Action<FontAwesomeIconNode>? OnMouseClickCallback { get; set; }
 
     public FontAwesomeIconNode()
     {
@@ -49,22 +46,61 @@ public class FontAwesomeIconNode : Node
 
             if (hovered)
             {
-                OnMouseEnterCallback?.Invoke(this);
+                DispatchEvent(new MouseEvent()
+                {
+                    EventType = MouseEventType.MouseOver,
+                });
             }
             else
             {
-                OnMouseOutCallback?.Invoke(this);
+                DispatchEvent(new MouseEvent()
+                {
+                    EventType = MouseEventType.MouseOut
+                });
             }
         }
 
         if (hovered)
         {
-            OnMouseOverCallback?.Invoke(this);
+            var mousePos = ImGui.GetMousePos();
+            if (mousePos != _mousePos)
+            {
+                _mousePos = mousePos;
+                DispatchEvent(new MouseEvent()
+                {
+                    EventType = MouseEventType.MouseMove
+                });
+            }
+
+            DispatchEvent(new MouseEvent()
+            {
+                EventType = MouseEventType.MouseHover
+            });
         }
 
-        if (ImGui.IsItemClicked())
+        if (ImGui.IsItemClicked(ImGuiMouseButton.Left))
         {
-            OnMouseClickCallback?.Invoke(this);
+            DispatchEvent(new MouseEvent()
+            {
+                EventType = MouseEventType.MouseClick,
+                Button = ImGuiMouseButton.Left,
+            });
+        }
+        else if (ImGui.IsItemClicked(ImGuiMouseButton.Middle))
+        {
+            DispatchEvent(new MouseEvent()
+            {
+                EventType = MouseEventType.MouseClick,
+                Button = ImGuiMouseButton.Middle,
+            });
+        }
+        else if (ImGui.IsItemClicked(ImGuiMouseButton.Right))
+        {
+            DispatchEvent(new MouseEvent()
+            {
+                EventType = MouseEventType.MouseClick,
+                Button = ImGuiMouseButton.Right,
+            });
         }
     }
 }

@@ -4,6 +4,7 @@ using HaselCommon.Graphics;
 using HaselCommon.Gui.Yoga;
 using HaselCommon.Gui.Yoga.Attributes;
 using HaselCommon.Gui.Yoga.Enums;
+using HaselCommon.Gui.Yoga.Events;
 using ImGuiNET;
 using Lumina.Text.ReadOnly;
 
@@ -19,6 +20,7 @@ public class AlertBox : Node
     [NodeProp("AlertBox", editable: true)]
     public Color BackgroundColor { get; set; } = hsl(0, 0, 0.17f);
 
+    [NodeProp("AlertBox", editable: true)]
     public AlertBoxPreset Preset
     {
         get => _preset;
@@ -35,13 +37,13 @@ public class AlertBox : Node
                     break;
 
                 case AlertBoxPreset.Warning:
-                    Icon = FontAwesomeIcon.ExclamationTriangle;
+                    Icon = FontAwesomeIcon.ExclamationCircle;
                     IconColor = hsl(47, 0.881f, 0.537f);
                     TextColor = hsl(47, 0.881f, 0.537f);
                     break;
 
                 case AlertBoxPreset.Error:
-                    Icon = FontAwesomeIcon.ExclamationTriangle;
+                    Icon = FontAwesomeIcon.TimesCircle;
                     IconColor = hsl(345.6f, 0.874f, 0.625f);
                     TextColor = hsl(345.6f, 0.874f, 0.625f);
                     break;
@@ -90,8 +92,6 @@ public class AlertBox : Node
         set => _closeNode.Display = value ? Display.Flex : Display.None;
     }
 
-    public Action<AlertBox>? CloseCallback { get; set; }
-
     public AlertBox() : base()
     {
         FlexDirection = FlexDirection.Row;
@@ -111,12 +111,20 @@ public class AlertBox : Node
             Icon = FontAwesomeIcon.Times,
             IconDefaultColor = hsl(0, 0, 0.631f),
             IconHoveredColor = hsl(0, 0, 0.831f),
-            OnMouseClickCallback = (node) => CloseCallback?.Invoke(this),
-            OnMouseOverCallback = (node) =>
+        });
+
+        AddEventListener<MouseEvent>((sender, evt) =>
+        {
+            if (evt.EventType == MouseEventType.MouseHover && sender == _closeNode)
             {
                 ImGui.SetMouseCursor(ImGuiMouseCursor.Hand);
                 using var tooltip = ImRaii.Tooltip();
                 ImGui.TextUnformatted("Close");
+            }
+            if (evt.EventType == MouseEventType.MouseClick && sender == _closeNode)
+            {
+                evt.Bubbles = false;
+                DispatchEvent(new CloseEvent());
             }
         });
 
@@ -136,3 +144,5 @@ public enum AlertBoxPreset
     Warning,
     Error
 }
+
+public class CloseEvent : YogaEvent;
