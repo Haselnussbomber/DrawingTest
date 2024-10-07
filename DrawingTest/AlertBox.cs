@@ -12,13 +12,11 @@ namespace DrawingTest;
 
 public class AlertBox : Node
 {
-    private readonly FontAwesomeIconNode _iconNode;
-    private readonly TextNode _textNode;
-    private readonly FontAwesomeIconNode _closeNode;
     private AlertBoxPreset _preset = AlertBoxPreset.Info;
 
-    [NodeProp("AlertBox", editable: true)]
-    public Color BackgroundColor { get; set; } = hsl(0, 0, 0.17f);
+    private FontAwesomeIconNode IconNode { get; init; }
+    private TextNode TextNode { get; init; }
+    private FontAwesomeIconNode DismissNode { get; init; }
 
     [NodeProp("AlertBox", editable: true)]
     public AlertBoxPreset Preset
@@ -52,44 +50,50 @@ public class AlertBox : Node
     }
 
     [NodeProp("AlertBox", editable: true)]
+    public Color BackgroundColor { get; set; } = hsl(0, 0, 0.17f);
+
+    [NodeProp("AlertBox", editable: true)]
+    public float BackgroundBorderRadius { get; set; } = 3;
+
+    [NodeProp("AlertBox", editable: true)]
     public FontAwesomeIcon Icon
     {
-        get => _iconNode.Icon;
-        set => _iconNode.Icon = value;
+        get => IconNode.Icon;
+        set => IconNode.Icon = value;
     }
 
     [NodeProp("AlertBox", editable: true)]
     public Color? IconColor
     {
-        get => _iconNode.IconDefaultColor;
-        set => _iconNode.IconDefaultColor = value;
+        get => IconNode.IconDefaultColor;
+        set => IconNode.IconDefaultColor = value;
     }
 
     [NodeProp("AlertBox", editable: true)]
     public Color? TextColor
     {
-        get => _textNode.TextColor;
-        set => _textNode.TextColor = value;
+        get => TextNode.TextColor;
+        set => TextNode.TextColor = value;
     }
 
     [NodeProp("AlertBox", editable: true)]
-    public Color? CloseIconColor
+    public Color? DismissIconColor
     {
-        get => _closeNode.IconDefaultColor;
-        set => _closeNode.IconDefaultColor = value;
+        get => DismissNode.IconDefaultColor;
+        set => DismissNode.IconDefaultColor = value;
     }
 
     [NodeProp("AlertBox", editable: true)]
     public ReadOnlySeString Text
     {
-        get => _textNode.Text;
-        set => _textNode.Text = value;
+        get => TextNode.Text;
+        set => TextNode.Text = value;
     }
 
-    public bool Closable
+    public bool Dismissable
     {
-        get => _closeNode.Display == Display.Flex;
-        set => _closeNode.Display = value ? Display.Flex : Display.None;
+        get => DismissNode.Display == Display.Flex;
+        set => DismissNode.Display = value ? Display.Flex : Display.None;
     }
 
     public AlertBox() : base()
@@ -99,13 +103,13 @@ public class AlertBox : Node
         ColumnGap = 14;
         AlignItems = Align.Center;
 
-        Add(_iconNode = new());
-        Add(_textNode = new()
+        Add(IconNode = new());
+        Add(TextNode = new()
         {
             FlexShrink = 1,
             FlexGrow = 1
         });
-        Add(_closeNode = new()
+        Add(DismissNode = new()
         {
             Display = Display.None,
             PaddingAll = 4,
@@ -115,18 +119,23 @@ public class AlertBox : Node
             IconHoveredColor = hsl(0, 0, 0.831f),
         });
 
-        AddEventListener<MouseEvent>((sender, evt) =>
+        DismissNode.AddEventListener<MouseEvent>((sender, evt) =>
         {
-            if (evt.EventType == MouseEventType.MouseHover && sender == _closeNode)
+            switch (evt.EventType)
             {
-                ImGui.SetMouseCursor(ImGuiMouseCursor.Hand);
-                using var tooltip = ImRaii.Tooltip();
-                ImGui.TextUnformatted("Close");
-            }
-            if (evt.EventType == MouseEventType.MouseClick && sender == _closeNode)
-            {
-                evt.Bubbles = false;
-                DispatchEvent(new CloseEvent());
+                case MouseEventType.MouseHover:
+                    {
+                        evt.Bubbles = false;
+                        ImGui.SetMouseCursor(ImGuiMouseCursor.Hand);
+                        using var tooltip = ImRaii.Tooltip();
+                        ImGui.TextUnformatted("Dismiss");
+                        break;
+                    }
+
+                case MouseEventType.MouseClick:
+                    evt.Bubbles = false;
+                    DispatchEvent(new AlertBoxDismissedEvent());
+                    break;
             }
         });
 
@@ -135,8 +144,9 @@ public class AlertBox : Node
 
     public override void DrawContent()
     {
+        // draw background
         var pos = ImGui.GetWindowPos() + AbsolutePosition;
-        ImGui.GetWindowDrawList().AddRectFilled(pos, pos + ComputedSize, BackgroundColor, 3);
+        ImGui.GetWindowDrawList().AddRectFilled(pos, pos + ComputedSize, BackgroundColor, BackgroundBorderRadius);
     }
 }
 
@@ -147,4 +157,4 @@ public enum AlertBoxPreset
     Error
 }
 
-public class CloseEvent : YogaEvent;
+public class AlertBoxDismissedEvent : YogaEvent;

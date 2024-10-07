@@ -19,8 +19,8 @@ public class TestWindow : YogaWindow
             _infoBox = new AlertBox()
             {
                 Preset = AlertBoxPreset.Info,
-                Text = "This is an AlertBox with the Info preset.",
-                Closable = true
+                Text = "This is a dismissable AlertBox with the Info preset.",
+                Dismissable = true
             },
 
             new AlertBox()
@@ -54,7 +54,7 @@ public class TestWindow : YogaWindow
             }
         );
 
-        _infoBox.AddEventListener<CloseEvent>((sender, evt) =>
+        _infoBox.AddEventListener<AlertBoxDismissedEvent>((sender, evt) =>
         {
             _infoBox.Display = Display.None;
             _buttonNode.Display = Display.Flex;
