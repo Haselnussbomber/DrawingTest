@@ -1,8 +1,8 @@
 using FFXIVClientStructs.FFXIV.Client.System.Framework;
 using HaselCommon.Gui.Yoga;
 using HaselCommon.Gui.Yoga.Attributes;
-using HaselCommon.Gui.Yoga.Enums;
 using HaselCommon.Math;
+using YogaSharp;
 
 namespace DrawingTest;
 
@@ -18,7 +18,7 @@ public class AnimatedBox : Node
 
     public override unsafe void UpdateContent()
     {
-        if (Display == Display.None)
+        if (Display == YGDisplay.None)
             return;
 
         AnimationTimestamp += MathUtils.Clamp01(Framework.Instance()->FrameDeltaTime / 2f) * AnimationDirection;

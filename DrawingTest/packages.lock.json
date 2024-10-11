@@ -20,6 +20,11 @@
           "Microsoft.SourceLink.GitLab": "1.1.1"
         }
       },
+      "Haselnussbomber.YogaSharp": {
+        "type": "Transitive",
+        "resolved": "1.0.4",
+        "contentHash": "3X8eUskaZZV0V6YoiIZVHBDYH+55x8N/Ll1MYCKyh7wiURbJ/TNRlhldZ++i6TnYdCIGinlvrRjSki6qY+OdiQ=="
+      },
       "Microsoft.Build.Tasks.Git": {
         "type": "Transitive",
         "resolved": "1.1.1",
@@ -114,6 +119,7 @@
       "haselcommon": {
         "type": "Project",
         "dependencies": {
+          "Haselnussbomber.YogaSharp": "[1.0.4, )",
           "Microsoft.Extensions.DependencyInjection": "[8.0.0, )",
           "Microsoft.Extensions.Logging": "[8.0.0, )"
         }

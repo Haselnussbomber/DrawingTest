@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrawingTest", "DrawingTest\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaselCommon", "HaselCommon\HaselCommon\HaselCommon.csproj", "{792AAEDB-D779-423E-BD21-F7FED14F9801}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HaselCommon.Tests", "HaselCommon\HaselCommon.Tests\HaselCommon.Tests.csproj", "{F46C60D5-1ACA-444B-AC66-3F3E8124F43F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,14 +31,6 @@ Global
 		{792AAEDB-D779-423E-BD21-F7FED14F9801}.Release|Any CPU.Build.0 = Release|x64
 		{792AAEDB-D779-423E-BD21-F7FED14F9801}.Release|x64.ActiveCfg = Release|x64
 		{792AAEDB-D779-423E-BD21-F7FED14F9801}.Release|x64.Build.0 = Release|x64
-		{F46C60D5-1ACA-444B-AC66-3F3E8124F43F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F46C60D5-1ACA-444B-AC66-3F3E8124F43F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F46C60D5-1ACA-444B-AC66-3F3E8124F43F}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{F46C60D5-1ACA-444B-AC66-3F3E8124F43F}.Debug|x64.Build.0 = Debug|Any CPU
-		{F46C60D5-1ACA-444B-AC66-3F3E8124F43F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F46C60D5-1ACA-444B-AC66-3F3E8124F43F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F46C60D5-1ACA-444B-AC66-3F3E8124F43F}.Release|x64.ActiveCfg = Release|Any CPU
-		{F46C60D5-1ACA-444B-AC66-3F3E8124F43F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

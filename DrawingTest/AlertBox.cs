@@ -3,10 +3,10 @@ using Dalamud.Interface.Utility.Raii;
 using HaselCommon.Graphics;
 using HaselCommon.Gui.Yoga;
 using HaselCommon.Gui.Yoga.Attributes;
-using HaselCommon.Gui.Yoga.Enums;
 using HaselCommon.Gui.Yoga.Events;
 using ImGuiNET;
 using Lumina.Text.ReadOnly;
+using YogaSharp;
 
 namespace DrawingTest;
 
@@ -92,16 +92,16 @@ public class AlertBox : Node
 
     public bool Dismissable
     {
-        get => DismissNode.Display == Display.Flex;
-        set => DismissNode.Display = value ? Display.Flex : Display.None;
+        get => DismissNode.Display == YGDisplay.Flex;
+        set => DismissNode.Display = value ? YGDisplay.Flex : YGDisplay.None;
     }
 
     public AlertBox() : base()
     {
-        FlexDirection = FlexDirection.Row;
-        PaddingAll = 17;
+        FlexDirection = YGFlexDirection.Row;
+        Padding = 17;
         ColumnGap = 14;
-        AlignItems = Align.Center;
+        AlignItems = YGAlign.Center;
 
         Add(IconNode = new());
         Add(TextNode = new()
@@ -111,9 +111,9 @@ public class AlertBox : Node
         });
         Add(DismissNode = new()
         {
-            Display = Display.None,
-            PaddingAll = 4,
-            MarginAll = -4,
+            Display = YGDisplay.None,
+            Padding = 4,
+            Margin = -4,
             Icon = FontAwesomeIcon.Times,
             IconDefaultColor = hsl(0, 0, 0.631f),
             IconHoveredColor = hsl(0, 0, 0.831f),

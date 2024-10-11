@@ -1,20 +1,20 @@
 using Dalamud.Plugin.Services;
 using HaselCommon.Gui.Yoga;
-using HaselCommon.Gui.Yoga.Enums;
 using Lumina.Text;
+using YogaSharp;
 
 namespace DrawingTest;
 
 public class ClockNode : TextNode
 {
-    public ClockNode()
+    public ClockNode() : base()
     {
         Service.Get<IPluginLog>().Debug("ClockNode ctor");
     }
 
     public override void UpdateContent()
     {
-        if (Display == Display.None)
+        if (Display == YGDisplay.None)
             return;
 
         Text = new SeStringBuilder()

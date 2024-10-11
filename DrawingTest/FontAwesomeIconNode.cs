@@ -4,9 +4,9 @@ using HaselCommon.Graphics;
 using HaselCommon.Gui;
 using HaselCommon.Gui.Yoga;
 using HaselCommon.Gui.Yoga.Attributes;
-using HaselCommon.Gui.Yoga.Enums;
 using HaselCommon.Gui.Yoga.Events;
 using ImGuiNET;
+using YogaSharp;
 
 namespace DrawingTest;
 
@@ -25,13 +25,13 @@ public class FontAwesomeIconNode : Node
     [NodeProp("FontAwesomeIcon", editable: true)]
     public Color? IconHoveredColor { get; set; }
 
-    public FontAwesomeIconNode()
+    public FontAwesomeIconNode() : base()
     {
-        NodeType = NodeType.Text;
-        HasMeasureFunc = true;
+        NodeType = YGNodeType.Text;
+        EnableMeasureFunc = true;
     }
 
-    public override Vector2 Measure(float width, MeasureMode widthMode, float height, MeasureMode heightMode)
+    public override Vector2 Measure(float width, YGMeasureMode widthMode, float height, YGMeasureMode heightMode)
     {
         return ImGuiUtils.GetIconSize(Icon);
     }

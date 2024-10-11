@@ -1,10 +1,10 @@
 using System.Numerics;
 using HaselCommon.Gui.Yoga;
 using HaselCommon.Gui.Yoga.Attributes;
-using HaselCommon.Gui.Yoga.Enums;
 using HaselCommon.Gui.Yoga.Events;
 using ImGuiNET;
 using Lumina.Text.ReadOnly;
+using YogaSharp;
 
 namespace DrawingTest;
 
@@ -28,7 +28,7 @@ public class ButtonNode : Node
     {
         PaddingHorizontal = 14;
         PaddingVertical = 7;
-        AlignSelf = Align.FlexStart;
+        AlignSelf = YGAlign.FlexStart;
 
         Add(_textNode = new());
     }

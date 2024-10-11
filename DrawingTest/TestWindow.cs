@@ -1,7 +1,7 @@
 using HaselCommon.Gui.Yoga;
-using HaselCommon.Gui.Yoga.Enums;
 using HaselCommon.Gui.Yoga.Events;
 using HaselCommon.Services;
+using YogaSharp;
 
 namespace DrawingTest;
 
@@ -37,17 +37,17 @@ public class TestWindow : YogaWindow
 
             new Node()
             {
-                FlexDirection = FlexDirection.Row,
+                FlexDirection = YGFlexDirection.Row,
                 ColumnGap = 20,
                 Children = [
                     new ClockNode
                     {
-                        MinWidth = StyleLength.Percent(33),
+                        MinWidth = YGValue.Percent(33),
                         Height = 60,
                     },
                     _buttonNode = new ButtonNode
                     {
-                        Display = Display.None,
+                        Display = YGDisplay.None,
                         Text = "Show info alert"
                     }
                 ]
@@ -56,16 +56,16 @@ public class TestWindow : YogaWindow
 
         _infoBox.AddEventListener<AlertBoxDismissedEvent>((sender, evt) =>
         {
-            _infoBox.Display = Display.None;
-            _buttonNode.Display = Display.Flex;
+            _infoBox.Display = YGDisplay.None;
+            _buttonNode.Display = YGDisplay.Flex;
         });
 
         _buttonNode.AddEventListener<MouseEvent>((sender, evt) =>
         {
             if (evt.EventType == MouseEventType.MouseClick)
             {
-                _buttonNode.Display = Display.None;
-                _infoBox.Display = Display.Flex;
+                _buttonNode.Display = YGDisplay.None;
+                _infoBox.Display = YGDisplay.Flex;
             }
         });
     }

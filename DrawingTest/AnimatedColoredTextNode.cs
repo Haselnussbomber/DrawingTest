@@ -2,10 +2,10 @@ using FFXIVClientStructs.FFXIV.Client.System.Framework;
 using HaselCommon.Graphics;
 using HaselCommon.Gui.Yoga;
 using HaselCommon.Gui.Yoga.Attributes;
-using HaselCommon.Gui.Yoga.Enums;
 using HaselCommon.Math;
 using ImGuiNET;
 using Lumina.Text.ReadOnly;
+using YogaSharp;
 
 namespace DrawingTest;
 
@@ -26,7 +26,7 @@ public class AnimatedColoredTextNode : TextNode
 
     public override unsafe void UpdateContent()
     {
-        if (Display == Display.None)
+        if (Display == YGDisplay.None)
             return;
 
         AnimationTimestamp += MathUtils.Clamp01(Framework.Instance()->FrameDeltaTime / 2f) * AnimationDirection;
