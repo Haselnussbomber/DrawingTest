@@ -12,15 +12,20 @@ public class TestWindow : YogaWindow
 
     public TestWindow(WindowManager windowManager) : base(windowManager, "TestWindow")
     {
-        EnableDebug = true;
-
         RootNode.Gap = 10;
         RootNode.Add(
-            _infoBox = new AlertBox()
+            new Node()
             {
-                Preset = AlertBoxPreset.Info,
-                Text = "This is a dismissable AlertBox with the Info preset.",
-                Dismissable = true
+                Border = 10,
+                Padding = 10,
+                Children = [
+                    _infoBox = new AlertBox()
+                    {
+                        Preset = AlertBoxPreset.Info,
+                        Text = "This is a dismissable AlertBox with the Info preset.",
+                        Dismissable = true
+                    },
+                ]
             },
 
             new AlertBox()
@@ -57,6 +62,7 @@ public class TestWindow : YogaWindow
         _infoBox.AddEventListener<AlertBoxDismissedEvent>((sender, evt) =>
         {
             _infoBox.Display = YGDisplay.None;
+            _infoBox.Parent!.Display = YGDisplay.None;
             _buttonNode.Display = YGDisplay.Flex;
         });
 
@@ -66,6 +72,7 @@ public class TestWindow : YogaWindow
             {
                 _buttonNode.Display = YGDisplay.None;
                 _infoBox.Display = YGDisplay.Flex;
+                _infoBox.Parent!.Display = YGDisplay.Flex;
             }
         });
     }

@@ -1,3 +1,4 @@
+using System.Numerics;
 using Dalamud.Interface;
 using Dalamud.Interface.Utility.Raii;
 using HaselCommon.Graphics;
@@ -145,7 +146,7 @@ public class AlertBox : Node
     public override void DrawContent()
     {
         // draw background
-        var pos = ImGui.GetWindowPos() + AbsolutePosition;
+        var pos = ImGui.GetWindowPos() + AbsolutePosition - new Vector2(ImGui.GetScrollX(), ImGui.GetScrollY());
         ImGui.GetWindowDrawList().AddRectFilled(pos, pos + ComputedSize, BackgroundColor, BackgroundBorderRadius);
     }
 }

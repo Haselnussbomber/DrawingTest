@@ -44,7 +44,7 @@ public class FontAwesomeIconNode : Node
 
     private void HandleInteraction()
     {
-        ImGui.SetCursorPos(AbsolutePosition + new Vector2(ComputedBorderLeft, ComputedBorderTop));
+        ImGui.SetCursorPos(AbsolutePosition);
 
         if (ImGui.InvisibleButton($"###{Guid}_Button", ComputedSize))
         {
